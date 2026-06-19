@@ -120,7 +120,7 @@ const app = {
                 ></div>
 
                 <!-- Overlay gradiente para legibilidad del texto -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" aria-hidden="true"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-textPrimary/70 via-textPrimary/20 to-transparent" aria-hidden="true"></div>
 
                 <!-- Contenido -->
                 <div class="relative z-10 w-full p-4 text-left">
@@ -189,26 +189,26 @@ const app = {
             }
 
             return `
-                <article class="product-card bg-white rounded-3xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 slide-up hover:shadow-md transition-shadow duration-300">
+                <article class="product-card bg-white rounded-3xl p-4 shadow-sm border border-primary/10 flex items-center gap-4 slide-up hover:shadow-md transition-shadow duration-300">
                     <!-- Imagen del producto -->
                     <div class="relative shrink-0">
                         <img
                             src="${p.image}"
                             alt="Imagen de ${p.name}"
-                            class="w-24 h-24 rounded-2xl object-cover bg-gray-100 shadow-inner"
+                            class="w-24 h-24 rounded-2xl object-cover bg-bgPrimary shadow-inner"
                             loading="lazy"
                         >
                     </div>
 
                     <!-- Información del producto -->
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-display font-bold text-lg leading-tight text-brand-dark truncate">${p.name}</h3>
-                        ${p.description ? `<p class="text-xs text-gray-500 mt-0.5 leading-relaxed line-clamp-2">${p.description}</p>` : ''}
+                        <h3 class="font-display font-bold text-lg leading-tight text-textPrimary truncate">${p.name}</h3>
+                        ${p.description ? `<p class="text-xs text-textSecondary mt-0.5 leading-relaxed line-clamp-2">${p.description}</p>` : ''}
                         <div class="flex justify-between items-center mt-3">
-                            <span class="font-bold text-brand-orange text-sm">${priceLabel}</span>
+                            <span class="font-bold text-accent text-sm">${priceLabel}</span>
                             <button
                                 data-product-id="${p.id}"
-                                class="add-product-btn w-9 h-9 bg-brand-dark text-white rounded-full flex items-center justify-center hover:bg-brand-orange transition-colors duration-200 shadow-sm shrink-0"
+                                class="add-product-btn w-9 h-9 bg-primary text-textPrimary rounded-full flex items-center justify-center hover:bg-primary/90 transition-colors duration-200 shadow-lg ring-1 ring-primary/25 shrink-0"
                                 aria-label="Agregar ${p.name} al carrito"
                             >
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -261,6 +261,7 @@ const app = {
         const descriptions = {
             helado:   'Elige tu presentacion, sabores y extras.',
             malteada: 'Vaso de 14 oz. Incluye crema chantilly.',
+            fresas_crema: 'Elige tu aderezo: Leche Condensada o Arequipe.',
         };
         if (descEl) descEl.textContent = descriptions[product.type] || product.description || 'Vaso de 22 oz.';
 
@@ -274,7 +275,10 @@ const app = {
         /* Limpiar valores previos */
         const frutasInput = $('in-frutas-text');
         const granizadoInput = $('in-granizado');
-        if (frutasInput)   frutasInput.value   = '';
+        if (frutasInput) {
+            frutasInput.value = '';
+            frutasInput.oninput = () => this.calcModalPrice();
+        }
         if (granizadoInput) granizadoInput.checked = false;
 
         /* ------------------------------------------------------------------ */
@@ -286,6 +290,11 @@ const app = {
             this._showForm('form-base');
             this._showForm('form-granizado');
             if (product.type === 'combinado') this._showForm('form-frutas');
+        }
+
+        if (product.type === 'fresas_crema') {
+            this._buildFresasOptions();
+            this._showForm('form-base');
         }
 
         if (product.type === 'helado') {
@@ -375,6 +384,28 @@ const app = {
     },
 
     /**
+     * Construye las opciones para Fresas con Crema
+     */
+    _buildFresasOptions() {
+        const container = $('base-options');
+        const label = $('label-base');
+        if (!container) return;
+
+        if (label) {
+            label.innerHTML = `Aderezo <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Obligatorio</span>`;
+        }
+
+        let html = '';
+        html += this._radioCardHtml('m_base', 'Leche Condensada', 0, `Leche Condensada`, `Incluido`);
+        html += this._radioCardHtml('m_base', 'Arequipe', 0, `Arequipe`, `Incluido`);
+        container.innerHTML = html;
+
+        container.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', () => this.calcModalPrice());
+        });
+    },
+
+    /**
      * Construye las opciones de tamaño para helados.
      */
     _buildHeladoSizes() {
@@ -382,7 +413,7 @@ const app = {
         if (!container) return;
 
         container.innerHTML = heladoSizes.map(size => `
-            <label class="size-option border-2 border-gray-100 rounded-2xl p-3 flex justify-between items-center cursor-pointer hover:border-brand-orange transition-colors duration-200 has-[:checked]:border-brand-orange has-[:checked]:bg-orange-50">
+            <label class="size-option border-2 border-primary/20 rounded-2xl p-3 flex justify-between items-center cursor-pointer hover:border-primary transition-colors duration-200 has-[:checked]:border-primary has-[:checked]:bg-primary/12">
                 <div class="flex items-center gap-3">
                     <input
                         type="radio"
@@ -391,11 +422,11 @@ const app = {
                         data-price="${size.price}"
                         data-max="${size.maxSabores}"
                         class="w-4 h-4"
-                        style="accent-color: #FF8A00;"
+                        style="accent-color: var(--color-primary);"
                     >
-                    <span class="font-semibold text-sm text-brand-dark">${size.name}</span>
+                    <span class="font-semibold text-sm text-textPrimary">${size.name}</span>
                 </div>
-                <span class="text-brand-orange text-sm font-bold">${COP.format(size.price)}</span>
+                <span class="text-accent text-sm font-bold">${COP.format(size.price)}</span>
             </label>
         `).join('');
 
@@ -422,14 +453,14 @@ const app = {
         }
 
         container.innerHTML = sabores.map(sabor => `
-            <label class="border-2 border-gray-100 rounded-2xl p-3 flex items-center justify-center gap-2 cursor-pointer hover:border-brand-orange transition-colors duration-200 has-[:checked]:border-brand-orange has-[:checked]:bg-orange-50 text-center">
+            <label class="border-2 border-primary/20 rounded-2xl p-3 flex items-center justify-center gap-2 cursor-pointer hover:border-primary transition-colors duration-200 has-[:checked]:border-primary has-[:checked]:bg-primary/12 text-center">
                 <input
                     type="${inputType}"
                     name="h_flavor"
                     value="${sabor}"
                     class="hidden"
                 >
-                <span class="font-semibold text-sm">${sabor}</span>
+                <span class="font-semibold text-sm text-textPrimary">${sabor}</span>
             </label>
         `).join('');
 
@@ -448,15 +479,15 @@ const app = {
 
         /* Opción "Sin toppings" */
         let html = `
-            <label class="border-2 border-red-100 bg-red-50 rounded-2xl p-4 flex items-center gap-3 cursor-pointer transition-colors duration-200 has-[:checked]:border-red-400">
-                <input type="checkbox" id="top-no" class="w-4 h-4" style="accent-color: #EF4444;">
-                <span class="font-bold text-sm text-red-600">No, gracias. Sin toppings.</span>
+            <label class="border-2 border-red-100 bg-red-50 rounded-2xl p-4 flex items-center gap-3 cursor-pointer transition-colors duration-200 has-[:checked]:border-alert has-[:checked]:bg-alert/10">
+                <input type="checkbox" id="top-no" class="w-4 h-4" style="accent-color: var(--color-alert);">
+                <span class="font-bold text-sm text-alert">No, gracias. Sin toppings.</span>
             </label>
         `;
 
         /* Opciones de toppings individuales */
         html += toppings.map(t => `
-            <label class="border-2 border-gray-100 rounded-2xl p-3 flex justify-between items-center cursor-pointer hover:border-brand-orange transition-colors duration-200 has-[:checked]:border-brand-orange has-[:checked]:bg-orange-50">
+            <label class="border-2 border-primary/20 rounded-2xl p-3 flex justify-between items-center cursor-pointer hover:border-primary transition-colors duration-200 has-[:checked]:border-primary has-[:checked]:bg-primary/12">
                 <div class="flex items-center gap-3">
                     <input
                         type="checkbox"
@@ -464,11 +495,11 @@ const app = {
                         value="${t.name}"
                         data-price="${t.price}"
                         class="w-4 h-4"
-                        style="accent-color: #FF8A00;"
+                        style="accent-color: var(--color-primary);"
                     >
-                    <span class="font-semibold text-sm">${t.name}</span>
+                    <span class="font-semibold text-sm text-textPrimary">${t.name}</span>
                 </div>
-                <span class="text-brand-orange text-sm font-bold">+ ${COP.format(t.price)}</span>
+                <span class="text-accent text-sm font-bold">+ ${COP.format(t.price)}</span>
             </label>
         `).join('');
 
@@ -506,10 +537,10 @@ const app = {
      */
     _radioCardHtml(name, value, price, label, priceLabel) {
         return `
-            <label class="border-2 border-gray-100 rounded-2xl p-3 flex flex-col items-center gap-1 cursor-pointer hover:border-brand-orange transition-colors duration-200 has-[:checked]:border-brand-orange has-[:checked]:bg-orange-50">
+            <label class="border-2 border-primary/20 rounded-2xl p-3 flex flex-col items-center gap-1 cursor-pointer hover:border-primary transition-colors duration-200 has-[:checked]:border-primary has-[:checked]:bg-primary/12">
                 <input type="radio" name="${name}" value="${value}" data-price="${price}" class="hidden">
-                <span class="font-bold text-sm">${label}</span>
-                <span class="text-brand-orange text-xs font-bold">${priceLabel}</span>
+                <span class="font-bold text-sm text-textPrimary">${label}</span>
+                <span class="text-accent text-xs font-bold">${priceLabel}</span>
             </label>
         `;
     },
@@ -528,13 +559,26 @@ const app = {
         if (!product) return;
 
         let total = 0;
+        let isValid = true;
 
         /* --- Precio base según tipo de producto --- */
-        if (product.type === 'jugo' || product.type === 'combinado') {
+        if (product.type === 'jugo' || product.type === 'combinado' || product.type === 'fresas_crema') {
             const selectedBase = Array.from(document.getElementsByName('m_base')).find(r => r.checked);
-            if (selectedBase) total += parseInt(selectedBase.dataset.price, 10);
+            if (selectedBase) {
+                total += parseInt(selectedBase.dataset.price, 10);
+            } else {
+                isValid = false;
+            }
+        }
+        
+        if (product.type === 'combinado') {
+            const frutasEl = $('in-frutas-text');
+            if (!frutasEl || !frutasEl.value.trim()) {
+                isValid = false;
+            }
+        }
 
-        } else if (product.type === 'helado') {
+        if (product.type === 'helado') {
             const selectedSize = Array.from(document.getElementsByName('h_size')).find(r => r.checked);
             if (selectedSize) {
                 total += parseInt(selectedSize.dataset.price, 10);
@@ -547,9 +591,18 @@ const app = {
                     checkedFlavors[checkedFlavors.length - 1].checked = false;
                     this._showToast(`Esta presentacion solo permite ${maxFlavors} sabor(es).`);
                 }
+                
+                const validFlavors = Array.from(document.getElementsByName('h_flavor')).filter(f => f.checked);
+                if (validFlavors.length === 0) isValid = false;
+            } else {
+                isValid = false;
             }
-        } else {
-            /* batido, malteada → precio fijo */
+        } else if (product.type === 'malteada') {
+            total += product.price;
+            const flavorInput = Array.from(document.getElementsByName('h_flavor')).find(f => f.checked);
+            if (!flavorInput) isValid = false;
+        } else if (product.type !== 'jugo' && product.type !== 'combinado' && product.type !== 'fresas_crema' && product.type !== 'helado') {
+            /* batido → precio fijo */
             total += product.price;
         }
 
@@ -565,6 +618,11 @@ const app = {
         /* Actualizar precio en el botón del modal */
         const priceEl = $('m-price');
         if (priceEl) priceEl.textContent = total > 0 ? COP.format(total) : '$0';
+
+        const btnAdd = $('btn-add-to-cart');
+        if (btnAdd) {
+            btnAdd.disabled = !isValid;
+        }
     },
 
     /* =========================================================================
@@ -589,11 +647,12 @@ const app = {
             toppings: [],
         };
 
-        /* --- Validar y capturar base (jugos) --- */
-        if (product.type === 'jugo' || product.type === 'combinado') {
+        /* --- Validar y capturar base (jugos y fresas) --- */
+        if (product.type === 'jugo' || product.type === 'combinado' || product.type === 'fresas_crema') {
             const baseInput = Array.from(document.getElementsByName('m_base')).find(r => r.checked);
             if (!baseInput) {
-                this._showToast('Selecciona si lo deseas en Agua o en Leche.');
+                const msg = product.type === 'fresas_crema' ? 'Selecciona Leche Condensada o Arequipe.' : 'Selecciona si lo deseas en Agua o en Leche.';
+                this._showToast(msg);
                 return;
             }
             config.base = baseInput.value;
@@ -729,12 +788,12 @@ const app = {
             }
 
             itemsContainer.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-16 text-gray-400">
-                    <svg class="w-16 h-16 mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <div class="flex flex-col items-center justify-center py-16 text-textSecondary">
+                    <svg class="w-16 h-16 mb-4 text-primary/20" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
-                    <p class="font-display font-bold text-lg text-gray-400">Tu carrito esta vacio</p>
-                    <p class="text-sm text-gray-400 mt-1">Agrega productos del menu para comenzar.</p>
+                    <p class="font-display font-bold text-lg text-textSecondary">Tu carrito esta vacio</p>
+                    <p class="text-sm text-textSecondary mt-1">Agrega productos del menu para comenzar.</p>
                 </div>
             `;
             return;
@@ -751,20 +810,20 @@ const app = {
             /* Construir badges de configuracion */
             let configBadges = '';
             if (item.config.base)        configBadges += `<span class="config-badge">En ${item.config.base}</span>`;
-            if (item.config.isGranizado) configBadges += `<span class="config-badge config-badge--blue">Granizado</span>`;
+            if (item.config.isGranizado) configBadges += `<span class="config-badge">Granizado</span>`;
             if (item.config.hSize)       configBadges += `<span class="config-badge">${item.config.hSize}</span>`;
 
             /* Textos adicionales */
             let extraText = '';
-            if (item.config.frutasText)        extraText += `<p class="text-xs text-gray-500 mt-1">Frutas: ${item.config.frutasText}</p>`;
-            if (item.config.hFlavor.length > 0) extraText += `<p class="text-xs text-gray-500 mt-1">Sabores: ${item.config.hFlavor.join(', ')}</p>`;
-            if (item.config.toppings.length > 0) extraText += `<p class="text-xs font-semibold text-brand-orange mt-1">Toppings: ${item.config.toppings.join(', ')}</p>`;
+            if (item.config.frutasText)        extraText += `<p class="text-xs text-textSecondary mt-1">Frutas: ${item.config.frutasText}</p>`;
+            if (item.config.hFlavor.length > 0) extraText += `<p class="text-xs text-textSecondary mt-1">Sabores: ${item.config.hFlavor.join(', ')}</p>`;
+            if (item.config.toppings.length > 0) extraText += `<p class="text-xs font-semibold text-accent mt-1">Toppings: ${item.config.toppings.join(', ')}</p>`;
 
             itemsContainer.innerHTML += `
-                <article class="bg-white p-4 rounded-3xl shadow-sm border border-gray-100 relative slide-up" data-cart-index="${index}">
+                <article class="bg-white p-4 rounded-3xl shadow-sm border border-primary/10 relative slide-up" data-cart-index="${index}">
                     <!-- Boton eliminar -->
                     <button
-                        class="remove-item-btn absolute top-4 right-4 text-gray-300 hover:text-red-500 transition-colors duration-200"
+                        class="remove-item-btn absolute top-4 right-4 text-textSecondary hover:text-alert transition-colors duration-200"
                         data-index="${index}"
                         aria-label="Eliminar ${item.name} del carrito"
                     >
@@ -773,19 +832,19 @@ const app = {
                         </svg>
                     </button>
 
-                    <h4 class="font-display font-bold text-brand-dark pr-8 mb-1">${item.name}</h4>
+                    <h4 class="font-display font-bold text-textPrimary pr-8 mb-1">${item.name}</h4>
                     ${configBadges ? `<div class="flex flex-wrap gap-1 mb-1">${configBadges}</div>` : ''}
                     ${extraText}
 
                     <!-- Controles de cantidad y precio -->
-                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-gray-100">
-                        <span class="font-bold text-brand-dark">${COP.format(item.unitPrice * item.qty)}</span>
-                        <div class="qty-controls flex items-center bg-gray-50 rounded-xl p-1 border border-gray-100">
-                            <button class="decrease-qty-btn w-7 h-7 flex items-center justify-center text-gray-500 font-bold hover:text-red-500 transition-colors" data-index="${index}" aria-label="Reducir cantidad">
+                    <div class="flex justify-between items-center mt-3 pt-3 border-t border-primary/15">
+                        <span class="font-bold text-accent">${COP.format(item.unitPrice * item.qty)}</span>
+                        <div class="qty-controls flex items-center bg-bgPrimary rounded-xl p-1 border border-primary/15">
+                            <button class="decrease-qty-btn w-7 h-7 flex items-center justify-center text-textSecondary font-bold hover:text-alert transition-colors" data-index="${index}" aria-label="Reducir cantidad">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>
                             </button>
-                            <span class="text-sm font-bold w-6 text-center text-brand-dark">${item.qty}</span>
-                            <button class="increase-qty-btn w-7 h-7 flex items-center justify-center text-brand-orange font-bold hover:text-orange-600 transition-colors" data-index="${index}" aria-label="Aumentar cantidad">
+                            <span class="text-sm font-bold w-6 text-center text-textPrimary">${item.qty}</span>
+                            <button class="increase-qty-btn w-7 h-7 flex items-center justify-center text-primary font-bold hover:text-accent transition-colors" data-index="${index}" aria-label="Aumentar cantidad">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                             </button>
                         </div>

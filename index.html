@@ -91,13 +91,15 @@
                         body:    ['Nunito', 'sans-serif'],
                     },
                     colors: {
-                        brand: {
-                            yellow: '#FFD100',
-                            orange: '#FF8A00',
-                            pink:   '#FF427F',
-                            green:  '#00C853',
-                            dark:   '#1A1A2E',
-                        },
+                        primary: '#FFC629',
+                        accent: '#FF8A00',
+                        darkBg: '#181512',
+                        cardBg: '#FFFFFF',
+                        textPrimary: '#181512',
+                        textSecondary: '#666666',
+                        warning: '#FFC629',
+                        alert: '#E0303D',
+                        bgPrimary: '#FFF8EC'
                     },
                 },
             },
@@ -115,7 +117,7 @@
     <!-- <link rel="apple-touch-icon" href="/apple-touch-icon.png"> -->
 </head>
 
-<body class="text-brand-dark font-body">
+<body class="text-textPrimary font-body bg-bgPrimary">
 
 <!-- ==========================================================================
      VISTA 1: HOME / HERO
@@ -155,7 +157,7 @@
         </p>
 
         <!-- Botón CTA principal -->
-        <button id="btn-cta" class="hero-cta-btn font-display" type="button">
+        <button id="btn-cta" class="btn-primary font-display py-4 px-8 text-xl mt-6" type="button">
             Ver el Menu
         </button>
 
@@ -177,16 +179,16 @@
      ========================================================================== -->
 <section
     id="view-main-menu"
-    class="view-section hidden-view fade-in min-h-screen bg-[#F8F9FA]"
+    class="view-section hidden-view fade-in min-h-screen bg-bgPrimary"
     aria-label="Menu de categorias"
 >
     <!-- Header de la vista -->
-    <header class="sticky top-0 z-30 glass-card border-b border-gray-100 px-5 py-4 shadow-sm">
+    <header class="sticky top-0 z-30 bg-cardBg border-b border-primary/20 px-5 py-4 shadow-sm">
         <div class="max-w-screen-xl mx-auto">
-            <h2 class="text-2xl font-display font-bold text-brand-dark">
+            <h2 class="text-2xl font-display font-bold text-textPrimary">
                 Nuestro Menu
             </h2>
-            <p class="text-sm text-gray-500 mt-0.5">Selecciona una categoria para ver los productos</p>
+            <p class="text-sm text-textSecondary mt-0.5">Selecciona una categoria para ver los productos</p>
         </div>
     </header>
 
@@ -198,7 +200,7 @@
     </main>
 
     <!-- Pie de página informativo -->
-    <footer class="text-center py-6 px-4 text-xs text-gray-400 border-t border-gray-100">
+    <footer class="text-center py-6 px-4 text-xs text-textSecondary border-t border-primary/20">
         <p>Precios sujetos a disponibilidad &nbsp;|&nbsp; Domicilio desde $2.000 COP</p>
     </footer>
 </section>
@@ -210,17 +212,17 @@
      ========================================================================== -->
 <section
     id="view-products"
-    class="view-section hidden-view fade-in min-h-screen bg-[#F8F9FA]"
+    class="view-section hidden-view fade-in min-h-screen bg-bgPrimary"
     aria-label="Lista de productos"
 >
     <!-- Header fijo con título de categoría y botón volver -->
-    <header class="sticky top-0 z-30 glass-card border-b border-gray-100 px-4 py-3 shadow-sm">
+    <header class="sticky top-0 z-30 bg-cardBg border-b border-primary/20 px-4 py-3 shadow-sm">
         <div class="max-w-screen-xl mx-auto flex items-center gap-3">
             <!-- Botón volver al menú -->
             <button
                 id="btn-back-to-menu"
                 type="button"
-                class="w-10 h-10 bg-white rounded-full shadow-sm flex items-center justify-center text-gray-600 hover:text-brand-orange hover:shadow-md transition-all duration-200 shrink-0"
+                class="w-10 h-10 bg-cardBg rounded-full shadow-sm flex items-center justify-center text-textPrimary hover:text-accent hover:shadow-md hover:bg-primary/10 transition-all duration-200 shrink-0 border border-primary/25"
                 aria-label="Volver al menu de categorias"
             >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -229,7 +231,7 @@
             </button>
 
             <!-- Título de la categoría activa -->
-            <h2 id="cat-title" class="text-xl font-display font-bold text-brand-dark">
+            <h2 id="cat-title" class="text-xl font-display font-bold text-textPrimary">
                 Categoria
             </h2>
         </div>
@@ -259,7 +261,7 @@
     <!-- Panel principal del modal -->
     <div
         id="modal-content"
-        class="bg-white w-full max-w-lg rounded-t-[2rem] max-h-[92vh] flex flex-col transform translate-y-full transition-transform duration-300"
+            class="bg-cardBg w-full max-w-lg rounded-t-[2rem] max-h-[92vh] flex flex-col transform translate-y-full transition-transform duration-300 border-t border-primary/20"
         role="document"
     >
         <!-- Imagen flotante del producto y botón de cierre -->
@@ -273,7 +275,7 @@
         <button
             id="btn-close-modal"
             type="button"
-            class="absolute top-4 right-4 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 hover:text-brand-dark transition-colors duration-200 z-10"
+            class="absolute top-4 right-4 w-10 h-10 bg-cardBg rounded-full flex items-center justify-center text-textSecondary hover:bg-primary/10 hover:text-textPrimary border border-primary/25 transition-colors duration-200 z-10"
             aria-label="Cerrar"
         >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -286,10 +288,10 @@
 
             <!-- Nombre y descripción del producto -->
             <div class="text-center mb-6">
-                <h3 id="m-name" class="text-2xl font-display font-bold text-brand-dark mb-1">
+                <h3 id="m-name" class="text-2xl font-display font-bold text-textPrimary mb-1">
                     Nombre del producto
                 </h3>
-                <p id="m-desc" class="text-sm text-gray-500 leading-relaxed">
+                <p id="m-desc" class="text-sm text-textSecondary leading-relaxed">
                     Descripcion del producto
                 </p>
             </div>
@@ -299,10 +301,10 @@
 
                 <!-- FORMULARIO: Frutas Combinadas (solo para type='combinado') -->
                 <div id="form-frutas" class="hidden modal-form-section" role="group" aria-labelledby="label-frutas">
-                    <label id="label-frutas" class="block text-sm font-bold text-brand-dark mb-1">
-                        Frutas a combinar <span class="text-brand-pink" aria-label="campo obligatorio">*</span>
+                    <label id="label-frutas" class="flex items-center text-sm font-bold text-textPrimary mb-1">
+                        Frutas a combinar <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Obligatorio</span>
                     </label>
-                    <p class="text-xs text-gray-500 mb-2">Elige 2 o 3 frutas de temporada.</p>
+                    <p class="text-xs text-textSecondary mb-2">Elige 2 o 3 frutas de temporada.</p>
                     <input
                         type="text"
                         id="in-frutas-text"
@@ -316,8 +318,8 @@
 
                 <!-- FORMULARIO: Base del jugo — Agua o Leche (type='jugo' o 'combinado') -->
                 <div id="form-base" class="hidden modal-form-section" role="group" aria-labelledby="label-base">
-                    <label id="label-base" class="block text-sm font-bold text-brand-dark mb-3">
-                        Base del jugo <span class="text-brand-pink" aria-label="campo obligatorio">*</span>
+                    <label id="label-base" class="flex items-center text-sm font-bold text-textPrimary mb-3">
+                        Base del jugo <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Obligatorio</span>
                     </label>
                     <!-- Las opciones de radio se generan dinámicamente en app._buildBaseOptions() -->
                     <div class="grid grid-cols-2 gap-3" id="base-options" role="radiogroup" aria-label="Selecciona la base"></div>
@@ -327,8 +329,8 @@
                 <div id="form-granizado" class="hidden modal-form-section">
                     <label class="granizado-toggle" for="in-granizado">
                         <div>
-                            <span class="block text-sm font-bold text-brand-dark">Hacerlo Granizado</span>
-                            <span class="text-xs text-gray-500">Toque extra refrescante con hielo triturado</span>
+                            <span class="flex items-center text-sm font-bold text-textPrimary">Hacerlo Granizado <span class="bg-primary/15 text-textSecondary border border-primary/10 text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Opcional</span></span>
+                            <span class="text-xs text-textSecondary mt-1 block">Toque extra refrescante con hielo triturado</span>
                         </div>
                         <input
                             type="checkbox"
@@ -340,8 +342,8 @@
 
                 <!-- FORMULARIO: Tamaños del helado (type='helado') -->
                 <div id="form-helado-size" class="hidden modal-form-section" role="group" aria-labelledby="label-size">
-                    <label id="label-size" class="block text-sm font-bold text-brand-dark mb-3">
-                        Presentacion <span class="text-brand-pink" aria-label="campo obligatorio">*</span>
+                    <label id="label-size" class="flex items-center text-sm font-bold text-textPrimary mb-3">
+                        Presentacion <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Obligatorio</span>
                     </label>
                     <!-- Las opciones se generan en app._buildHeladoSizes() -->
                     <div class="flex flex-col gap-2" id="helado-sizes-container" role="radiogroup" aria-label="Elige el tamano del helado"></div>
@@ -349,17 +351,17 @@
 
                 <!-- FORMULARIO: Sabores de helado o malteada -->
                 <div id="form-helado-flavor" class="hidden modal-form-section" role="group" aria-labelledby="label-flavor">
-                    <label id="label-flavor" class="block text-sm font-bold text-brand-dark mb-1">
-                        Sabores <span class="text-brand-pink" aria-label="campo obligatorio">*</span>
+                    <label id="label-flavor" class="flex items-center text-sm font-bold text-textPrimary mb-1">
+                        Sabores <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Obligatorio</span>
                     </label>
-                    <p id="flavor-hint" class="text-xs text-gray-500 mb-3">Selecciona tus sabores.</p>
+                    <p id="flavor-hint" class="text-xs text-textSecondary mb-3">Selecciona tus sabores.</p>
                     <!-- Las opciones se generan en app._buildFlavorOptions() -->
                     <div class="grid grid-cols-3 gap-2" id="helado-flavors-container"></div>
                 </div>
 
                 <!-- FORMULARIO: Toppings extras (hasToppings: true) -->
-                <div id="form-toppings" class="hidden">
-                    <h4 class="font-display font-bold text-lg mb-3 text-brand-dark">Toppings Extras</h4>
+                <div id="form-toppings" class="hidden modal-form-section">
+                    <h4 class="font-display font-bold text-lg mb-3 text-textPrimary flex items-center">Toppings Extras <span class="bg-primary/15 text-textSecondary border border-primary/10 text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Opcional</span></h4>
                     <!-- Las opciones se generan en app._buildToppingOptions() -->
                     <div class="flex flex-col gap-2" id="toppings-container" role="group" aria-label="Selecciona toppings adicionales"></div>
                 </div>
@@ -368,17 +370,18 @@
         </div><!-- /scrollable content -->
 
         <!-- Footer del modal: precio en tiempo real y botón de agregar -->
-        <div class="p-4 border-t border-gray-100 bg-white safe-bottom">
+        <div class="p-4 border-t border-primary/20 bg-cardBg safe-bottom rounded-b-[2rem]">
             <button
                 id="btn-add-to-cart"
                 type="button"
-                class="w-full bg-brand-orange hover:bg-orange-600 text-white font-display font-bold text-lg py-4 rounded-3xl shadow-lg transition-all duration-200 flex justify-between items-center px-6"
+                class="btn-primary w-full py-4 flex justify-between items-center px-6"
                 aria-label="Agregar producto al pedido"
+                disabled
             >
-                <span>Agregar al Pedido</span>
+                <span class="text-lg">Agregar al Pedido</span>
                 <span
                     id="m-price"
-                    class="bg-white/20 px-3 py-1 rounded-xl text-base font-bold tabular-nums"
+                    class="text-accent text-2xl font-bold tabular-nums"
                     aria-live="polite"
                     aria-label="Precio actual"
                 >
@@ -395,16 +398,16 @@
      ========================================================================== -->
 <section
     id="view-cart"
-    class="view-section hidden-view fixed inset-0 z-[60] bg-[#F8F9FA] flex flex-col h-full overflow-hidden"
+    class="view-section hidden-view fixed inset-0 z-[60] bg-bgPrimary flex flex-col h-full overflow-hidden"
     aria-label="Tu carrito de pedido"
 >
     <!-- Header del carrito -->
-    <header class="bg-white border-b border-gray-100 px-5 py-4 flex items-center justify-between shrink-0 shadow-sm">
-        <h2 class="text-2xl font-display font-bold text-brand-dark">Tu Pedido</h2>
+    <header class="bg-cardBg border-b border-primary/20 px-5 py-4 flex items-center justify-between shrink-0 shadow-sm">
+        <h2 class="text-2xl font-display font-bold text-textPrimary">Tu Pedido</h2>
         <button
             id="btn-close-cart"
             type="button"
-            class="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-600 transition-colors duration-200"
+            class="w-10 h-10 bg-cardBg hover:bg-primary/10 border border-primary/25 rounded-full flex items-center justify-center text-primary transition-colors duration-200"
             aria-label="Cerrar carrito"
         >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -422,13 +425,13 @@
         </div>
 
         <!-- Formulario de entrega (se muestra solo si hay ítems) -->
-        <div id="checkout-form" class="bg-white p-5 rounded-3xl shadow-sm border border-gray-100 flex flex-col gap-4 hidden mt-4">
-            <h3 class="font-display font-bold text-lg text-brand-dark">Datos de Entrega</h3>
+        <div id="checkout-form" class="bg-cardBg p-5 rounded-3xl shadow-sm border border-primary/20 flex flex-col gap-4 hidden mt-4">
+            <h3 class="font-display font-bold text-lg text-textPrimary">Datos de Entrega</h3>
 
             <!-- Notas generales opcionales -->
             <div>
-                <label for="cart-notes" class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">
-                    Notas Generales <span class="text-gray-400 font-normal">(Opcional)</span>
+                <label for="cart-notes" class="block text-xs font-bold text-textSecondary uppercase tracking-wide mb-1.5 flex items-center">
+                    Notas Generales <span class="bg-primary/15 text-textSecondary border border-primary/10 text-[9px] px-2 py-0.5 rounded-full ml-2 uppercase">Opcional</span>
                 </label>
                 <textarea
                     id="cart-notes"
@@ -442,8 +445,8 @@
 
             <!-- Dirección de entrega (campo obligatorio) -->
             <div>
-                <label for="cart-address" class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5">
-                    Direccion de Entrega <span class="text-brand-pink" aria-label="campo obligatorio">*</span>
+                <label for="cart-address" class="block text-xs font-bold text-warning uppercase tracking-wide mb-1.5 flex items-center">
+                    Direccion de Entrega <span class="bg-warning text-textPrimary text-[9px] px-2 py-0.5 rounded-full ml-2 uppercase font-bold">Obligatorio</span>
                 </label>
                 <input
                     type="text"
@@ -455,7 +458,7 @@
                     maxlength="200"
                 >
                 <!-- Mensaje de error de dirección -->
-                <p id="address-error" class="text-xs text-brand-pink mt-1 hidden" role="alert">
+                <p id="address-error" class="text-xs bg-alert text-white px-3 py-2 rounded-lg mt-1 hidden font-bold" role="alert">
                     La direccion de entrega es obligatoria.
                 </p>
             </div>
@@ -464,20 +467,21 @@
     </div><!-- /scrollable body -->
 
     <!-- Footer del carrito: total y botón de envío -->
-    <div class="bg-white px-5 pb-5 pt-4 shrink-0 shadow-[0_-8px_24px_rgba(0,0,0,0.06)] rounded-t-3xl">
+    <div class="bg-cardBg px-5 pb-5 pt-4 shrink-0 shadow-[0_-8px_24px_rgba(24,21,18,0.08)] rounded-t-3xl border-t border-primary/20 relative">
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-primary animate-pulse"></div>
         <!-- Total del pedido -->
-        <div class="flex justify-between items-baseline mb-1">
-            <span class="text-gray-500 font-semibold text-sm">Total Productos</span>
+        <div class="flex justify-between items-baseline mb-1 mt-2">
+            <span class="text-textSecondary font-semibold text-sm">Total Productos</span>
             <span
                 id="cart-total-price"
-                class="font-display font-bold text-3xl text-brand-dark tabular-nums"
+                class="font-display font-bold text-3xl text-accent tabular-nums drop-shadow-md"
                 aria-live="polite"
                 aria-label="Total del pedido"
             >
                 $0
             </span>
         </div>
-        <p class="text-xs text-brand-orange text-center font-semibold mb-4">
+        <p class="text-xs bg-primary/20 text-textPrimary px-3 py-2 rounded-lg text-center font-bold mb-4">
             Domicilio desde $2.000 COP — a acordar con el negocio
         </p>
 
@@ -505,7 +509,7 @@
 <button
     id="floating-cart"
     type="button"
-    class="hidden fixed bottom-6 right-5 z-40 bg-brand-dark text-white p-4 rounded-full"
+    class="hidden fixed bottom-6 right-5 z-40 bg-cardBg border border-primary/35 text-primary p-4 rounded-full shadow-lg hover:shadow-xl"
     aria-label="Ver carrito de pedido"
 >
     <div class="relative" aria-hidden="true">
@@ -516,7 +520,7 @@
         <!-- Badge con el conteo de ítems -->
         <span
             id="cart-badge"
-            class="absolute -top-3 -right-3 bg-brand-pink text-white text-xs font-bold h-6 w-6 rounded-full flex items-center justify-center border-2 border-brand-dark"
+            class="absolute -top-3 -right-3 bg-accent text-white text-xs font-bold h-6 w-6 rounded-full flex items-center justify-center border-2 border-cardBg shadow-[0_0_12px_rgba(255,138,0,0.28)]"
             aria-label="Cantidad de productos en el carrito"
             aria-live="polite"
         >

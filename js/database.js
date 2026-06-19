@@ -105,15 +105,15 @@ const categories = [
         cardImage: "https://images.unsplash.com/photo-1557142046-c704a3adf364?w=600&q=80&auto=format&fit=crop",
     },
     {
-        id: 'malteadas',
-        label: 'Malteadas',
-        colorFrom: '#ede9fe',
-        colorTo:   '#ddd6fe',
-        accentColor: '#5b21b6',
-        circleColor: '#c4b5fd',
-        /** Icono SVG (outline) — malteada / vaso alto */
-        iconPath: 'M9 3v1M15 3v1M3 7h18M4 21h16a1 1 0 001-1V8a1 1 0 00-1-1H4a1 1 0 00-1 1v12a1 1 0 001 1z',
-        cardImage: "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=600&q=80&auto=format&fit=crop",
+        id: 'fresas_crema',
+        label: 'Fresas con Crema',
+        colorFrom: '#ffe4e6',
+        colorTo:   '#fecdd3',
+        accentColor: '#be123c',
+        circleColor: '#fca5a5',
+        /** Icono SVG (outline) — fresa/postre */
+        iconPath: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
+        cardImage: "https://images.unsplash.com/photo-1596662951363-2fdb3f6b7bc1?w=600&q=80&auto=format&fit=crop",
     },
 ];
 
@@ -258,7 +258,7 @@ const products = [
         description: 'Agridulce y refrescante, una fruta colombiana unica.',
         pAgua: 8500, pLeche: 10000,
         hasToppings: true,
-        image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&q=80&auto=format&fit=crop',
     },
     {
         id: 9,
@@ -373,7 +373,7 @@ const products = [
         description: 'Batido con el sabor inconfundible de las galletas Cocosette.',
         price: 12000,
         hasToppings: true,
-        image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1552689486-f6773047d19f?w=400&q=80&auto=format&fit=crop',
     },
     {
         id: 20,
@@ -411,17 +411,31 @@ const products = [
     },
 
     /* -------------------------------------------------------------------------
-     * Malteadas
+     * Malteadas (Ahora en Batidos Especiales)
      * ----------------------------------------------------------------------- */
     {
         id: 23,
-        categoryId: 'malteadas',
+        categoryId: 'batidos',
         type: 'malteada',
         name: 'Malteada Clasica',
         description: 'Vaso 14 oz. 250 g de helado artesanal y crema chantilly.',
         price: 11000,
         hasToppings: true,
         image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=400&q=80&auto=format&fit=crop',
+    },
+
+    /* -------------------------------------------------------------------------
+     * Fresas con Crema (Reemplaza a Malteadas)
+     * ----------------------------------------------------------------------- */
+    {
+        id: 24,
+        categoryId: 'fresas_crema',
+        type: 'fresas_crema',
+        name: 'Fresas con Crema',
+        description: 'Vaso de 14 oz. Deliciosas fresas con crema. Elige: Leche Condensada o Arequipe.',
+        price: 13000,
+        hasToppings: true,
+        image: 'https://images.unsplash.com/photo-1596662951363-2fdb3f6b7bc1?w=400&q=80&auto=format&fit=crop',
     },
 ];
 
