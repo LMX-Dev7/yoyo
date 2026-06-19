@@ -1,0 +1,807 @@
+/**
+ * =============================================================================
+ * YOYO B&M — styles.css
+ * =============================================================================
+ * Hoja de estilos personalizada que complementa a Tailwind CSS con:
+ *   - Variables CSS de la marca (tokens de diseño)
+ *   - Estilos glassmorphic y de tarjetas premium
+ *   - Animaciones y micro-interacciones
+ *   - Componentes UI reutilizables (toasts, badges, scrollbars)
+ *   - Ajustes de accesibilidad y tipografía
+ * =============================================================================
+ */
+
+/* =============================================================================
+ * 1. VARIABLES CSS — Tokens de Diseño de la Marca
+ * ========================================================================== */
+
+:root {
+    /* Paleta de colores principal */
+    --color-brand-yellow:   #FFD100;
+    --color-brand-orange:   #FF8A00;
+    --color-brand-orange-dk:#E07000;
+    --color-brand-pink:     #FF427F;
+    --color-brand-green:    #00C853;
+    --color-brand-dark:     #1A1A2E;
+    --color-brand-dark-2:   #16213E;
+
+    /* Neutrales */
+    --color-bg-primary:     #F8F9FA;
+    --color-bg-card:        #FFFFFF;
+    --color-text-primary:   #1A1A2E;
+    --color-text-secondary: #6B7280;
+    --color-text-muted:     #9CA3AF;
+    --color-border:         #E5E7EB;
+
+    /* Sombras */
+    --shadow-sm:  0 1px 3px rgba(0,0,0,0.08),  0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md:  0 4px 16px rgba(0,0,0,0.10), 0 2px 6px  rgba(0,0,0,0.06);
+    --shadow-lg:  0 10px 40px rgba(0,0,0,0.14), 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-xl:  0 20px 60px rgba(0,0,0,0.18), 0 8px 20px rgba(0,0,0,0.10);
+    --shadow-orange: 0 8px 30px rgba(255,138,0,0.35);
+
+    /* Radio de bordes */
+    --radius-sm:  0.75rem;   /* 12px */
+    --radius-md:  1rem;      /* 16px */
+    --radius-lg:  1.5rem;    /* 24px */
+    --radius-xl:  2rem;      /* 32px */
+    --radius-full: 9999px;
+
+    /* Duraciones de transición */
+    --transition-fast:   150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow:   400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Tipografía */
+    --font-display: 'Fredoka', 'Trebuchet MS', sans-serif;
+    --font-body:    'Nunito', 'Segoe UI', sans-serif;
+}
+
+/* =============================================================================
+ * 2. RESET Y BASE
+ * ========================================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* Eliminar tap highlight en dispositivos táctiles */
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Evitar zoom en inputs en iOS */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic Viewport Height para móviles modernos */
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografía de display */
+h1, h2, h3, h4, h5,
+.font-display {
+    font-family: var(--font-display);
+}
+
+/* Estilos de imagen por defecto */
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* Eliminar estilos nativos de botones */
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+/* =============================================================================
+ * 3. SISTEMA DE VISTAS (NAVEGACIÓN SPA)
+ * ========================================================================== */
+
+/**
+ * `.hidden-view` — clase que oculta completamente una sección/vista.
+ * Se aplica/retira mediante JavaScript para la navegación entre pantallas.
+ */
+.hidden-view {
+    display: none !important;
+}
+
+/* =============================================================================
+ * 4. SECCIÓN HERO — Pantalla de Inicio
+ * ========================================================================== */
+
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/** Imagen de fondo del hero */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 30%;
+    background-repeat: no-repeat;
+    /* La URL se inyecta desde JavaScript (storeConfig.heroImage) */
+    transition: transform 8s ease-out;
+    will-change: transform;
+}
+
+/** Overlay degradado sobre la imagen de fondo */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(26, 26, 46, 0.5) 0%,
+        rgba(26, 26, 46, 0.2) 30%,
+        rgba(255, 138, 0, 0.15) 60%,
+        rgba(26, 26, 46, 0.75) 100%
+    );
+}
+
+/** Contenido superpuesto en el hero */
+.hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/** Logo container circular glassmorphic */
+.hero-logo {
+    width: 7rem;
+    height: 7rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.hero-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-full);
+}
+
+/** Nombre del negocio en el hero */
+.hero-store-name {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+/** Slogan del hero */
+.hero-tagline {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.88);
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    max-width: 320px;
+}
+
+/** Botón CTA principal del hero */
+.hero-cta-btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 1.1rem 2rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-brand-dark);
+    background: linear-gradient(135deg, var(--color-brand-yellow) 0%, var(--color-brand-orange) 100%);
+    box-shadow: var(--shadow-orange), 0 2px 0 rgba(0,0,0,0.1);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-cta-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.hero-cta-btn:hover,
+.hero-cta-btn:focus-visible {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(255, 138, 0, 0.5), 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.hero-cta-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/** Badge de horario en el hero */
+.hero-hours-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.25rem;
+    padding: 0.4rem 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* =============================================================================
+ * 5. MENÚ PRINCIPAL (CATEGORÍAS)
+ * ========================================================================== */
+
+/** Grid de categorías: 2 columnas en móvil, se expande en pantallas mayores */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem 1.25rem 2rem;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        padding: 1.5rem 2rem 3rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1100px;
+        gap: 1.5rem;
+        padding: 2rem 2rem 4rem;
+    }
+}
+
+/* =============================================================================
+ * 6. LISTA DE PRODUCTOS
+ * ========================================================================== */
+
+.product-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1.25rem 6rem;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+    .product-list-container {
+        padding: 1.5rem 2rem 6rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-list-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 1100px;
+        padding: 2rem 2rem 6rem;
+        gap: 1.25rem;
+        align-items: start;
+    }
+}
+
+/* =============================================================================
+ * 7. TARJETAS DE PRODUCTO
+ * ========================================================================== */
+
+.product-card {
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* =============================================================================
+ * 8. GLASSMORPHISM — Panel Modal y Cards
+ * ========================================================================== */
+
+/**
+ * Clase genérica para fondos de cristal esmerilado.
+ * Se usa en tarjetas y overlays que necesitan efecto glassmorphic.
+ */
+.glass-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* =============================================================================
+ * 9. MODAL DE PRODUCTO
+ * ========================================================================== */
+
+/** Overlay del modal */
+#modal-product {
+    background: rgba(26, 26, 46, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/** Contenedor blanco del modal */
+#modal-content {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    box-shadow: var(--shadow-xl), 0 -1px 0 rgba(0,0,0,0.04);
+}
+
+/** Imagen circular flotante del producto en el modal */
+.modal-product-image {
+    width: 8rem;
+    height: 8rem;
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    border: 4px solid #FFFFFF;
+    box-shadow: var(--shadow-md);
+    background-color: var(--color-border);
+}
+
+.modal-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =============================================================================
+ * 10. FORMULARIOS — Controles del Modal
+ * ========================================================================== */
+
+/** Secciones de formulario dentro del modal */
+.modal-form-section {
+    background-color: #F9FAFB;
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+}
+
+/** Input de texto para frutas combinadas */
+.fruits-input {
+    width: 100%;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    background: white;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    outline: none;
+}
+
+.fruits-input:focus {
+    border-color: var(--color-brand-orange);
+    box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.12);
+}
+
+/** Toggle switch para el granizado */
+.granizado-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: border-color var(--transition-fast);
+    user-select: none;
+}
+
+.granizado-toggle:has(input:checked) {
+    border-color: var(--color-brand-orange);
+    background: linear-gradient(to right, white, #FFF8F0);
+}
+
+/* Estilos para checkbox/radio de opciones (base agua/leche, sabores, etc.) */
+input[type="radio"],
+input[type="checkbox"] {
+    accent-color: var(--color-brand-orange);
+}
+
+/** Checkbox grande para granizado */
+#in-granizado {
+    width: 1.5rem;
+    height: 1.5rem;
+    accent-color: var(--color-brand-orange);
+    cursor: pointer;
+}
+
+/* =============================================================================
+ * 11. BADGES DE CONFIGURACIÓN EN EL CARRITO
+ * ========================================================================== */
+
+.config-badge {
+    display: inline-block;
+    background: #F3F4F6;
+    color: #4B5563;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+}
+
+.config-badge--blue {
+    background: #DBEAFE;
+    color: #1D4ED8;
+}
+
+/* =============================================================================
+ * 12. BOTÓN FLOTANTE DEL CARRITO
+ * ========================================================================== */
+
+#floating-cart {
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    box-shadow: var(--shadow-lg);
+}
+
+#floating-cart:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-xl);
+}
+
+#floating-cart:active {
+    transform: scale(0.95);
+}
+
+#floating-cart.scale-125 {
+    transform: scale(1.25);
+}
+
+/* =============================================================================
+ * 13. BOTÓN DE WHATSAPP
+ * ========================================================================== */
+
+.whatsapp-btn {
+    background: linear-gradient(135deg, #25D366 0%, #1EBF5A 100%);
+    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.whatsapp-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45);
+}
+
+.whatsapp-btn:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+}
+
+/* =============================================================================
+ * 14. INPUTS DEL FORMULARIO DE CHECKOUT
+ * ========================================================================== */
+
+.checkout-input {
+    width: 100%;
+    border: 2px solid #F3F4F6;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    color: var(--color-text-primary);
+    background: white;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    outline: none;
+}
+
+.checkout-input:focus {
+    border-color: var(--color-brand-orange);
+    box-shadow: 0 0 0 3px rgba(255, 138, 0, 0.10);
+}
+
+.checkout-input.border-red-400 {
+    border-color: #F87171;
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.10);
+}
+
+/* =============================================================================
+ * 15. TOAST DE NOTIFICACIÓN
+ * ========================================================================== */
+
+/**
+ * Toast que reemplaza los alert() del navegador.
+ * Se muestra temporalmente en la parte inferior de la pantalla.
+ */
+.app-toast {
+    position: fixed;
+    bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    z-index: 9999;
+
+    background: var(--color-brand-dark);
+    color: white;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-lg);
+    white-space: nowrap;
+    max-width: calc(100vw - 2rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    /* Animación de entrada/salida */
+    opacity: 0;
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+}
+
+.app-toast--visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* =============================================================================
+ * 16. SCROLLBAR PERSONALIZADA
+ * ========================================================================== */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #9CA3AF;
+}
+
+/** Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #D1D5DB transparent;
+}
+
+/** Ocultar scrollbar manteniendo scroll (para el modal) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* =============================================================================
+ * 17. ANIMACIONES
+ * ========================================================================== */
+
+/** Animación fade-in de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/** Animación slide-up de aparición */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/** Animación scale-in */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/** Animación shimmer (carga esqueleto) */
+@keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+}
+
+.fade-in  { animation: fadeIn  0.4s var(--transition-slow) both; }
+.slide-up { animation: slideUp 0.4s var(--transition-slow) both; }
+.scale-in { animation: scaleIn 0.3s var(--transition-slow) both; }
+
+/* =============================================================================
+ * 18. SKELETON / ESTADO DE CARGA
+ * ========================================================================== */
+
+.skeleton {
+    background: linear-gradient(90deg, #F3F4F6 25%, #E5E7EB 50%, #F3F4F6 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-sm);
+}
+
+/* =============================================================================
+ * 19. FOCUS VISIBLE — Accesibilidad por Teclado
+ * ========================================================================== */
+
+/**
+ * Indica el foco del teclado de forma clara sin afectar usuarios de ratón/touch.
+ */
+:focus-visible {
+    outline: 3px solid var(--color-brand-orange);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--color-brand-orange);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* =============================================================================
+ * 20. SAFE AREA INSETS — iPhone y dispositivos con notch
+ * ========================================================================== */
+
+/**
+ * Padding inferior para evitar solapamiento con la barra de inicio de iOS.
+ */
+.safe-bottom {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+}
+
+.pb-safe {
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* =============================================================================
+ * 21. DISEÑO RESPONSIVO — Breakpoints Principales
+ * ========================================================================== */
+
+/* Tablet (640px+): Aumentar espaciado */
+@media (min-width: 640px) {
+    .hero-content {
+        padding: 3rem 2rem;
+    }
+
+    .hero-logo {
+        width: 8rem;
+        height: 8rem;
+    }
+}
+
+/* Desktop (1024px+): Limitar ancho del contenido y centrar */
+@media (min-width: 1024px) {
+    #view-main-menu,
+    #view-products {
+        max-width: none;
+    }
+
+    /* Vista del carrito en desktop: ventana flotante centrada */
+    #view-cart {
+        max-width: 520px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        box-shadow: var(--shadow-xl);
+    }
+
+    /* Flotante del carrito en desktop */
+    #floating-cart {
+        right: calc(50% - 280px);
+    }
+}
+
+/* Pantallas muy grandes (1280px+) */
+@media (min-width: 1280px) {
+    #floating-cart {
+        right: calc(50% - 300px);
+    }
+}
+
+/* =============================================================================
+ * 22. MODO OSCURO (prefers-color-scheme)
+ * ========================================================================== */
+
+/*
+ * Opcional: actualmente el diseño usa colores claros. Si en el futuro se desea
+ * soporte de modo oscuro, descomentar y personalizar esta sección.
+ */
+
+/*
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg-primary:  #0F0F1A;
+        --color-bg-card:     #1A1A2E;
+        --color-text-primary:   #F9FAFB;
+        --color-text-secondary: #9CA3AF;
+        --color-border:         #374151;
+    }
+    body { background-color: var(--color-bg-primary); }
+}
+*/
+
+/* =============================================================================
+ * 23. UTILIDADES ADICIONALES
+ * ========================================================================== */
+
+/** Limitar líneas de texto (para descripciones de productos) */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/** Selección de texto con color de marca */
+::selection {
+    background: rgba(255, 138, 0, 0.25);
+    color: var(--color-text-primary);
+}
