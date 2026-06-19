@@ -87,10 +87,12 @@ const app = {
         const nameEl  = $('hero-store-name');
         const tagEl   = $('hero-tagline');
         const bgEl    = $('hero-bg');
+        const logoEl  = $('hero-logo-img');
 
         if (nameEl)  nameEl.textContent  = storeConfig.name;
         if (tagEl)   tagEl.textContent   = storeConfig.tagline;
         if (bgEl)    bgEl.style.backgroundImage = `url('${storeConfig.heroImage}')`;
+        if (logoEl)  logoEl.src = storeConfig.logoUrl;
     },
 
     /* =========================================================================

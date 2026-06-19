@@ -36,16 +36,16 @@ const storeConfig = {
     whatsappPhone: "573009414019",
 
     /** Texto informativo del costo de domicilio (solo informativo, no es un cálculo automático) */
-    deliveryFeeText: "Domicilio desde $2.000 COP — a acordar con el negocio",
+    deliveryFeeText: "Domicilio desde $2.000 COP — acordar con el negocio",
 
     /** URL de imagen de alta calidad para el fondo del hero en la pantalla de inicio */
-    heroImage: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=1600&q=85&auto=format&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1641665271888-575e46923776?q=80&auto=format&fit=crop",
 
     /**
      * URL del logo del negocio. Reemplaza esta URL con la imagen real del logo.
      * Se recomienda imagen cuadrada (ej: 400x400px) en formato PNG con fondo transparente.
      */
-    logoUrl: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?w=400&q=80&auto=format&fit=crop",
+    logoUrl: "https://images.unsplash.com/photo-1594489556673-c816408242f5?q=80&auto=format&fit=crop",
 
     /** Ciudad o localización para el pie de página y SEO */
     location: "Barranquilla, Colombia",
@@ -113,7 +113,7 @@ const categories = [
         circleColor: '#fca5a5',
         /** Icono SVG (outline) — fresa/postre */
         iconPath: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-        cardImage: "https://images.unsplash.com/photo-1596662951363-2fdb3f6b7bc1?w=600&q=80&auto=format&fit=crop",
+        cardImage: "https://images.unsplash.com/photo-1553177595-4de2bb0842b9?q=80&auto=format&fit=crop",
     },
 ];
 
@@ -435,7 +435,7 @@ const products = [
         description: 'Vaso de 14 oz. Deliciosas fresas con crema. Elige: Leche Condensada o Arequipe.',
         price: 13000,
         hasToppings: true,
-        image: 'https://images.unsplash.com/photo-1596662951363-2fdb3f6b7bc1?w=400&q=80&auto=format&fit=crop',
+        image: 'https://images.unsplash.com/photo-1553177595-4de2bb0842b9?q=80&w=385&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
 ];
 
