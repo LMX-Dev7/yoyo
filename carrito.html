@@ -4,8 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>YOYO B&M | Carrito</title>
-  <meta name="description" content="Finaliza tu pedido por WhatsApp.">
+  <title>YOYO B&M | Carrito y pedido por WhatsApp</title>
+  <meta name="description" content="Finaliza tu pedido en YOYO B&M. Revisa tu carrito, completa la direccion y envia tu compra por WhatsApp.">
+  <meta name="keywords" content="YOYO B&M, carrito de compras, pedido por WhatsApp, domicilios Barranquilla, finalizar pedido">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:large">
+  <link rel="canonical" href="https://yoyobym.com.co/carrito.html">
+  <meta property="og:title" content="YOYO B&M | Carrito y pedido por WhatsApp">
+  <meta property="og:description" content="Finaliza tu pedido en YOYO B&M. Revisa tu carrito, completa la direccion y envia tu compra por WhatsApp.">
+  <meta property="og:image" content="https://yoyobym.com.co/img/placeholders/logocom.jpeg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yoyobym.com.co/carrito.html">
+  <meta property="og:site_name" content="YOYO B&M">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="YOYO B&M | Carrito y pedido por WhatsApp">
+  <meta name="twitter:description" content="Finaliza tu pedido en YOYO B&M. Revisa tu carrito, completa la direccion y envia tu compra por WhatsApp.">
+  <meta name="twitter:image" content="https://yoyobym.com.co/img/placeholders/logocom.jpeg">
+  <meta name="theme-color" content="#FFC629">
   <link rel="icon" type="image/jpeg" href="img/placeholders/logocom.jpeg">
   <link rel="apple-touch-icon" href="img/placeholders/logocom.jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,11 +62,11 @@
       <h3 class="font-display font-bold text-lg text-textPrimary">Datos de Entrega</h3>
       <div>
         <label for="cart-notes" class="block text-xs font-bold text-textSecondary uppercase tracking-wide mb-1.5 flex items-center">Notas Generales</label>
-        <textarea id="cart-notes" rows="2" class="checkout-input resize-none" placeholder="Ej: Para llevar, sin pitillo, etc." maxlength="300"></textarea>
+        <textarea id="cart-notes" rows="2" class="checkout-input resize-none" placeholder="Ej: Para llevar, sin pitillo, etc." maxlength="200"></textarea>
       </div>
       <div>
         <label for="cart-address" class="block text-xs font-bold text-warning uppercase tracking-wide mb-1.5 flex items-center">Direccion de Entrega</label>
-        <input type="text" id="cart-address" class="checkout-input" placeholder="Tu direccion completa con barrio" autocomplete="street-address" aria-required="true" maxlength="200">
+        <input type="text" id="cart-address" class="checkout-input" placeholder="Tu direccion completa con barrio" autocomplete="street-address" aria-required="true" maxlength="150">
         <p id="address-error" class="text-xs bg-alert text-white px-3 py-2 rounded-lg mt-1 hidden font-bold" role="alert">La direccion de entrega es obligatoria.</p>
       </div>
     </div>
@@ -64,6 +78,7 @@
     </div>
     <button id="btn-send-order" type="button" class="whatsapp-btn w-full text-white font-display font-bold text-lg py-4 rounded-3xl flex justify-center items-center gap-2.5" disabled>Enviar por WhatsApp</button>
   </div>
+  <div id="app-footer"></div>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

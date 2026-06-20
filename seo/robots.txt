@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://yoyobym.com.co/seo/sitemap.xml

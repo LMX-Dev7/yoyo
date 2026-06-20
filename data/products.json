@@ -1,0 +1,248 @@
+[
+  {
+    "id": 1,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Fresa",
+    "description": "Jugo natural de fresa, dulce y refrescante.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 2,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Pina",
+    "description": "Jugo natural de pina, tropical y vibrante.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 3,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Mango",
+    "description": "Jugo de mango costeno, espeso y lleno de sabor.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 4,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Melon",
+    "description": "Jugo ligero y dulce de melon fresco.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1588661642878-a00685ea754d?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 5,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Zapote",
+    "description": "Fruta tropical de sabor dulce y textura cremosa.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 6,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Banana",
+    "description": "Solo disponible en leche. Cremoso y energizante.",
+    "pAgua": null,
+    "pLeche": 10000,
+    "restrict": "Leche",
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1543218024-57a70143c369?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 7,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Nispero",
+    "description": "Sabor dulce y suave, tipico de la costa Caribe.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 8,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Lulo",
+    "description": "Agridulce y refrescante, una fruta colombiana unica.",
+    "pAgua": 8500,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 9,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Maracuya",
+    "description": "Intenso y exotico, con el sabor de los tropicos.",
+    "pAgua": 8500,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1592994696-3bf82b339c24?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 10,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Mora",
+    "description": "Jugoso y con ese toque acido que enamora.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1625671752324-0aa24a5b4dc3?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 11,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Frutos Rojos",
+    "description": "Mezcla de fresa, mora y cereza. Antioxidante puro.",
+    "pAgua": 9000,
+    "pLeche": 11000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 12,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Guanabana",
+    "description": "Cremosa y delicada, un clasico de jugos colombianos.",
+    "pAgua": 8000,
+    "pLeche": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 13,
+    "categoryId": "jugos",
+    "type": "jugo",
+    "name": "Limon",
+    "description": "Solo en agua. Refrescante y natural, con toque de azucar.",
+    "pAgua": 8000,
+    "pLeche": null,
+    "restrict": "Agua",
+    "hasToppings": false,
+    "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 14,
+    "categoryId": "jugos",
+    "type": "combinado",
+    "name": "Frutas Combinadas",
+    "description": "Crea tu mezcla ideal eligiendo 2 o 3 frutas de temporada.",
+    "pAgua": 10000,
+    "pLeche": 12000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 15,
+    "categoryId": "batidos",
+    "type": "batido",
+    "name": "Limonada de Coco",
+    "description": "Un clasico refrescante con leche de coco y limon.",
+    "price": 10000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 16,
+    "categoryId": "batidos",
+    "type": "batido",
+    "name": "Oreo",
+    "description": "Batido cremoso con galletas Oreo trituradas y leche fria.",
+    "price": 12000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1519869325930-281384150729?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 17,
+    "categoryId": "batidos",
+    "type": "batido",
+    "name": "Galletas Chips",
+    "description": "Batido con galletas de chispas de chocolate.",
+    "price": 12000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 18,
+    "categoryId": "batidos",
+    "type": "batido",
+    "name": "Chocolate",
+    "description": "Cremoso y profundo, para los amantes del chocolate.",
+    "price": 12000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 19,
+    "categoryId": "batidos",
+    "type": "batido",
+    "name": "Cocosette",
+    "description": "Batido con el sabor inconfundible de las galletas Cocosette.",
+    "price": 12000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1552689486-f6773047d19f?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 20,
+    "categoryId": "batidos",
+    "type": "batido",
+    "name": "Milo",
+    "description": "Batido energizante con polvo de Milo y leche entera.",
+    "price": 12000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 21,
+    "categoryId": "batidos",
+    "type": "batido",
+    "name": "Cafe",
+    "description": "Batido frio de cafe, perfecto para recargar energia.",
+    "price": 12000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 22,
+    "categoryId": "helados",
+    "type": "helado",
+    "name": "Helados",
+    "description": "Elige tu presentacion y tus sabores favoritos.",
+    "price": 5000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1560008581-09826d1de69e?w=400&q=80&auto=format&fit=crop"
+  },
+  {
+    "id": 24,
+    "categoryId": "fresas_crema",
+    "type": "fresas_crema",
+    "name": "Fresas con Crema",
+    "description": "Vaso de 14 oz. Deliciosas fresas con crema. Elige: Leche Condensada o Arequipe.",
+    "price": 13000,
+    "hasToppings": true,
+    "image": "https://images.unsplash.com/photo-1645562290001-dff9baca8d80?q=80&auto=format&fit=crop"
+  }
+]

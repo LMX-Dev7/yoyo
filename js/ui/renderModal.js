@@ -1,7 +1,9 @@
+import { escapeHtml } from '../security/sanitize.js';
+
 export const renderModalShell = () => `
 <div id="modal-product" class="fixed inset-0 z-50 flex justify-center items-end hidden opacity-0 transition-opacity duration-200" role="dialog" aria-modal="true" aria-labelledby="m-name">
   <div id="modal-content" class="bg-cardBg w-full max-w-lg rounded-t-[2rem] max-h-[92vh] flex flex-col transform translate-y-full transition-transform duration-200 border-t border-black/5" role="document">
-    <div class="absolute -top-14 inset-x-0 flex justify-center" aria-hidden="true">
+    <div class="absolute -top-14 inset-x-0 flex justify-center hidden" aria-hidden="true">
       <div class="modal-product-image">
         <img id="m-img" src="" alt="" width="128" height="128">
       </div>
@@ -70,8 +72,8 @@ export const renderModalShell = () => `
 
 export const renderRadioCard = (name, value, price, label, priceLabel) => `
   <label class="border border-black/10 rounded-2xl p-3 flex flex-col items-center gap-1 cursor-pointer has-[:checked]:border-black/30 has-[:checked]:bg-black/5">
-    <input type="radio" name="${name}" value="${value}" data-price="${price}" class="hidden">
-    <span class="font-bold text-sm text-textPrimary">${label}</span>
-    <span class="text-accent text-xs font-bold">${priceLabel}</span>
+    <input type="radio" name="${escapeHtml(name)}" value="${escapeHtml(value)}" data-price="${price}" class="hidden">
+    <span class="font-bold text-sm text-textPrimary">${escapeHtml(label)}</span>
+    <span class="text-accent text-xs font-bold">${escapeHtml(priceLabel)}</span>
   </label>
 `;

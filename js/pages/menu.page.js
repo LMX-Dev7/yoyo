@@ -1,10 +1,20 @@
-import { categories, products, heladoSizes, toppings, sabores } from '../config/store.js';
+import { getStoreCatalog } from '../data-access/dataProvider.js';
 import { $, $$, formatMoney } from '../core/dom.js';
 import { state } from '../core/state.js';
 import { loadCart, saveCart } from '../core/storage.js';
 import { addCartItem, getCartCount } from '../core/cart.js';
 import { renderCategoryGrid, renderProductList, getProductPriceLabel } from '../ui/renderMenu.js';
 import { renderModalShell, renderRadioCard } from '../ui/renderModal.js';
+import { escapeHtml } from '../security/sanitize.js';
+import { limitText } from '../security/validate.js';
+
+const menuData = {
+  categories: [],
+  products: [],
+  heladoSizes: [],
+  toppings: [],
+  sabores: [],
+};
 
 const showToast = (message, duration = 2500) => {
   const existing = document.querySelector('.app-toast');
@@ -52,7 +62,7 @@ const buildBaseOptions = (product) => {
 const buildFresasOptions = (product) => {
   const container = $('base-options');
   const label = $('label-base');
-  if (label) label.innerHTML = `Aderezo <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Obligatorio</span>`;
+  if (label) label.innerHTML = 'Aderezo <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full ml-2 uppercase tracking-wider">Obligatorio</span>';
   if (container) {
     const priceLabel = formatMoney(product.price);
     container.innerHTML =
@@ -64,11 +74,11 @@ const buildFresasOptions = (product) => {
 const buildHeladoSizes = () => {
   const container = $('helado-sizes-container');
   if (!container) return;
-  container.innerHTML = heladoSizes.map((size) => `
+  container.innerHTML = menuData.heladoSizes.map((size) => `
     <label class="size-option border-2 border-primary/20 rounded-2xl p-3 flex justify-between items-center cursor-pointer hover:border-primary transition-colors duration-200 has-[:checked]:border-primary has-[:checked]:bg-primary/12">
       <div class="flex items-center gap-3">
-        <input type="radio" name="h_size" value="${size.id}" data-price="${size.price}" data-max="${size.maxSabores}" class="w-4 h-4" style="accent-color: var(--color-primary);">
-        <span class="font-semibold text-sm text-textPrimary">${size.name}</span>
+        <input type="radio" name="h_size" value="${escapeHtml(size.id)}" data-price="${size.price}" data-max="${size.maxSabores}" class="w-4 h-4" style="accent-color: var(--color-primary);">
+        <span class="font-semibold text-sm text-textPrimary">${escapeHtml(size.name)}</span>
       </div>
       <span class="text-accent text-sm font-bold">${formatMoney(size.price)}</span>
     </label>
@@ -81,10 +91,10 @@ const buildFlavorOptions = (isMalteada) => {
   if (!container) return;
   if (hint) hint.textContent = isMalteada ? 'Selecciona 1 sabor para tu malteada.' : 'Sabores disponibles segun la presentacion elegida.';
   const inputType = isMalteada ? 'radio' : 'checkbox';
-  container.innerHTML = sabores.map((flavor) => `
+  container.innerHTML = menuData.sabores.map((flavor) => `
     <label class="border-2 border-primary/20 rounded-2xl p-3 flex items-center justify-center gap-2 cursor-pointer hover:border-primary transition-colors duration-200 has-[:checked]:border-primary has-[:checked]:bg-primary/12 text-center">
-      <input type="${inputType}" name="h_flavor" value="${flavor}" class="hidden">
-      <span class="font-semibold text-sm text-textPrimary">${flavor}</span>
+      <input type="${inputType}" name="h_flavor" value="${escapeHtml(flavor)}" class="hidden">
+      <span class="font-semibold text-sm text-textPrimary">${escapeHtml(flavor)}</span>
     </label>
   `).join('');
 };
@@ -92,13 +102,13 @@ const buildFlavorOptions = (isMalteada) => {
 const buildToppings = () => {
   const container = $('toppings-container');
   if (!container) return;
-  container.innerHTML = toppings.map((top) => `
-    <label class="granizado-toggle" for="top-${top.id}">
+  container.innerHTML = menuData.toppings.map((top) => `
+    <label class="granizado-toggle" for="top-${escapeHtml(top.id)}">
       <div>
-        <span class="flex items-center text-sm font-bold text-textPrimary">${top.name}</span>
+        <span class="flex items-center text-sm font-bold text-textPrimary">${escapeHtml(top.name)}</span>
         <span class="text-xs text-textSecondary mt-1 block">${formatMoney(top.price)}</span>
       </div>
-      <input type="checkbox" id="top-${top.id}" name="topping" value="${top.name}" data-price="${top.price}">
+      <input type="checkbox" id="top-${escapeHtml(top.id)}" name="topping" value="${escapeHtml(top.name)}" data-price="${top.price}">
     </label>
   `).join('');
 };
@@ -160,6 +170,7 @@ const closeModal = () => {
   setTimeout(() => {
     overlay.classList.add('hidden');
     state.currentProduct = null;
+    state.livePrice = 0;
   }, 320);
 };
 
@@ -178,9 +189,10 @@ const showProductsView = () => {
 };
 
 const openModal = (productId) => {
-  const product = products.find((item) => item.id === productId);
+  const product = menuData.products.find((item) => item.id === productId);
   if (!product) return;
   state.currentProduct = product;
+  state.livePrice = 0;
 
   const img = $('m-img');
   const name = $('m-name');
@@ -201,7 +213,10 @@ const openModal = (productId) => {
   const granizadoInput = $('in-granizado');
   if (frutasInput) {
     frutasInput.value = '';
-    frutasInput.oninput = calcModalPrice;
+    frutasInput.oninput = () => {
+      frutasInput.value = limitText(frutasInput.value, 100);
+      calcModalPrice();
+    };
   }
   if (granizadoInput) granizadoInput.checked = false;
 
@@ -262,7 +277,7 @@ const addToCart = () => {
 
   if (product.type === 'combinado') {
     const frutasEl = $('in-frutas-text');
-    const text = frutasEl ? frutasEl.value.trim() : '';
+    const text = frutasEl ? limitText(frutasEl.value, 100) : '';
     if (!text) return showToast('Escribe las frutas que deseas combinar.');
     config.frutasText = text;
   }
@@ -275,7 +290,7 @@ const addToCart = () => {
   if (product.type === 'helado') {
     const size = Array.from(document.getElementsByName('h_size')).find((input) => input.checked);
     if (!size) return showToast('Selecciona la presentacion del helado.');
-    const sizeData = heladoSizes.find((item) => item.id === size.value);
+    const sizeData = menuData.heladoSizes.find((item) => item.id === size.value);
     config.hSize = sizeData ? sizeData.name : size.value;
     const flavors = Array.from(document.getElementsByName('h_flavor')).filter((input) => input.checked).map((input) => input.value);
     if (!flavors.length) return showToast('Debes seleccionar al menos un sabor.');
@@ -306,24 +321,31 @@ const addToCart = () => {
   closeModal();
 };
 
-export const initMenuPage = () => {
+export const initMenuPage = async () => {
+  const { storeConfig, categories, products } = await getStoreCatalog();
+  menuData.categories = categories;
+  menuData.products = products;
+  menuData.heladoSizes = storeConfig.heladoSizes || [];
+  menuData.toppings = storeConfig.toppings || [];
+  menuData.sabores = storeConfig.sabores || [];
+
   state.cart = loadCart();
 
   const modalRoot = $('modal-root');
   if (modalRoot) modalRoot.innerHTML = renderModalShell();
   const categoryGrid = $('category-grid');
-  if (categoryGrid) categoryGrid.innerHTML = renderCategoryGrid(categories);
+  if (categoryGrid) categoryGrid.innerHTML = renderCategoryGrid(menuData.categories);
 
   $$('.category-card', categoryGrid || document).forEach((btn) => {
     btn.addEventListener('click', () => {
       state.lastCategoryId = btn.dataset.categoryId;
-      const category = categories.find((item) => item.id === btn.dataset.categoryId);
+      const category = menuData.categories.find((item) => item.id === btn.dataset.categoryId);
       const title = $('cat-title');
       if (title) title.textContent = category ? category.label : 'Categoria';
       const list = $('product-list');
       if (!list) return;
-      const categoryProducts = products.filter((item) => item.categoryId === btn.dataset.categoryId);
-      list.innerHTML = renderProductList({ products: categoryProducts, getPriceLabel: (product) => getProductPriceLabel({ product, heladoSizes }) });
+      const categoryProducts = menuData.products.filter((item) => item.categoryId === btn.dataset.categoryId);
+      list.innerHTML = renderProductList({ products: categoryProducts, getPriceLabel: (product) => getProductPriceLabel({ product, heladoSizes: menuData.heladoSizes }) });
       $$('.add-product-btn', list).forEach((button) => {
         button.addEventListener('click', () => openModal(Number(button.dataset.productId)));
       });
@@ -344,13 +366,13 @@ export const initMenuPage = () => {
     showCategoriesView();
   });
 
-  const category = categories.find((item) => item.id === state.lastCategoryId) || categories[0];
+  const category = menuData.categories.find((item) => item.id === state.lastCategoryId) || menuData.categories[0];
   const title = $('cat-title');
-  if (title) title.textContent = category.label;
+  if (title && category) title.textContent = category.label;
   const list = $('product-list');
-  if (list) {
-    const categoryProducts = products.filter((item) => item.categoryId === category.id);
-    list.innerHTML = renderProductList({ products: categoryProducts, getPriceLabel: (product) => getProductPriceLabel({ product, heladoSizes }) });
+  if (list && category) {
+    const categoryProducts = menuData.products.filter((item) => item.categoryId === category.id);
+    list.innerHTML = renderProductList({ products: categoryProducts, getPriceLabel: (product) => getProductPriceLabel({ product, heladoSizes: menuData.heladoSizes }) });
     $$('.add-product-btn', list).forEach((button) => {
       button.addEventListener('click', () => openModal(Number(button.dataset.productId)));
     });

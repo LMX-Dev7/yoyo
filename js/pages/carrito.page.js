@@ -1,4 +1,4 @@
-import { storeConfig } from '../config/store.js';
+import { getStoreConfig } from '../data-access/dataProvider.js';
 import { $ } from '../core/dom.js';
 import { state } from '../core/state.js';
 import { loadCart, saveCart } from '../core/storage.js';
@@ -7,27 +7,30 @@ import { renderHeader } from '../ui/renderHeader.js';
 import { renderFooter } from '../ui/renderFooter.js';
 import { renderCartItems } from '../ui/renderCart.js';
 import { buildWhatsAppMessage, openWhatsApp } from '../services/whatsapp.js';
+import { validateRequiredText, validateOptionalText, MAX_ADDRESS_LENGTH, MAX_COMMENTS_LENGTH } from '../security/validate.js';
 
-const renderShell = () => {
-  const header = $('app-header');
-  const footer = $('app-footer');
-  if (header) header.innerHTML = renderHeader({ title: 'Tu Pedido', subtitle: 'Revisa tu carrito y envia por WhatsApp', backHref: 'menu.html' });
-  if (footer) footer.innerHTML = renderFooter({ text: storeConfig.openingHours });
-};
-
-const renderPage = () => {
-  const items = $('cart-items');
-  if (items) items.innerHTML = renderCartItems(state.cart);
-  const checkout = $('checkout-form');
-  const sendBtn = $('btn-send-order');
-  if (checkout) checkout.classList.toggle('hidden', state.cart.length === 0);
-  if (sendBtn) sendBtn.disabled = state.cart.length === 0;
-  const totalEl = $('cart-total-price');
-  if (totalEl) totalEl.textContent = `$${getCartTotal(state.cart).toLocaleString('es-CO')}`;
-};
-
-export const initCarritoPage = () => {
+export const initCarritoPage = async () => {
+  const storeConfig = await getStoreConfig();
   state.cart = loadCart();
+
+  const renderShell = () => {
+    const header = $('app-header');
+    const footer = $('app-footer');
+    if (header) header.innerHTML = renderHeader({ title: 'Tu Pedido', subtitle: 'Revisa tu carrito y envia por WhatsApp', backHref: 'menu.html' });
+    if (footer) footer.innerHTML = renderFooter({ text: storeConfig.openingHours });
+  };
+
+  const renderPage = () => {
+    const items = $('cart-items');
+    if (items) items.innerHTML = renderCartItems(state.cart);
+    const checkout = $('checkout-form');
+    const sendBtn = $('btn-send-order');
+    if (checkout) checkout.classList.toggle('hidden', state.cart.length === 0);
+    if (sendBtn) sendBtn.disabled = state.cart.length === 0;
+    const totalEl = $('cart-total-price');
+    if (totalEl) totalEl.textContent = `$${getCartTotal(state.cart).toLocaleString('es-CO')}`;
+  };
+
   renderShell();
   renderPage();
 
@@ -65,17 +68,35 @@ export const initCarritoPage = () => {
       const addressInput = $('cart-address');
       const notesInput = $('cart-notes');
       const addressError = $('address-error');
-      const address = addressInput ? addressInput.value.trim() : '';
-      const notes = notesInput ? notesInput.value.trim() : '';
-      if (!address) {
-        if (addressInput) addressInput.classList.add('border-red-400');
-        if (addressError) addressError.classList.remove('hidden');
+
+      const addressResult = validateRequiredText(addressInput ? addressInput.value : '', MAX_ADDRESS_LENGTH, 'La direccion de entrega');
+      const notesResult = validateOptionalText(notesInput ? notesInput.value : '', MAX_COMMENTS_LENGTH, 'Los comentarios');
+
+      if (!addressResult.valid) {
+        if (addressInput) {
+          addressInput.classList.add('border-red-400');
+          addressInput.value = addressResult.value;
+          addressInput.focus();
+        }
+        if (addressError) {
+          addressError.textContent = addressResult.error;
+          addressError.classList.remove('hidden');
+        }
         return;
       }
+
+      if (!notesResult.valid) {
+        if (notesInput) {
+          notesInput.value = notesResult.value;
+          notesInput.focus();
+        }
+        return;
+      }
+
       if (addressInput) addressInput.classList.remove('border-red-400');
       if (addressError) addressError.classList.add('hidden');
       saveCart(state.cart);
-      const message = buildWhatsAppMessage({ storeConfig, cart: state.cart, address, notes });
+      const message = buildWhatsAppMessage({ storeConfig, cart: state.cart, address: addressResult.value, notes: notesResult.value });
       openWhatsApp(storeConfig.whatsappPhone, message);
     });
   }
@@ -83,9 +104,17 @@ export const initCarritoPage = () => {
   const addressInput = $('cart-address');
   if (addressInput) {
     addressInput.addEventListener('input', () => {
+      addressInput.value = addressInput.value.slice(0, MAX_ADDRESS_LENGTH);
       addressInput.classList.remove('border-red-400');
       const err = $('address-error');
       if (err) err.classList.add('hidden');
+    });
+  }
+
+  const notesInput = $('cart-notes');
+  if (notesInput) {
+    notesInput.addEventListener('input', () => {
+      notesInput.value = notesInput.value.slice(0, MAX_COMMENTS_LENGTH);
     });
   }
 };

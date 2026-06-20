@@ -1,11 +1,13 @@
-import { storeConfig } from '../config/store.js';
+import { getStoreConfig } from '../data-access/dataProvider.js';
+import { escapeHtml } from '../security/sanitize.js';
 
 const preloadImage = (src) => {
   const image = new Image();
   image.src = src;
 };
 
-export const initIndexPage = () => {
+export const initIndexPage = async () => {
+  const storeConfig = await getStoreConfig();
   const main = document.getElementById('landing-root');
 
   preloadImage('img/placeholders/logocom.jpeg');
@@ -17,12 +19,12 @@ export const initIndexPage = () => {
       <section id="view-home" class="view-section hero-section" aria-label="Pantalla de inicio">
         <div id="hero-bg" class="hero-bg" role="img" aria-label="Jugos y batidos naturales frescos"></div>
         <div class="hero-content">
-          <img class="hero-logo" src="img/placeholders/logo.svg" alt="${storeConfig.name}" loading="eager" decoding="async" fetchpriority="high">
-          <a id="btn-cta" class="btn-primary btn-primary--delivery font-display py-4 px-8 text-xl mt-6" href="menu.html">
+          <img class="hero-logo" src="img/placeholders/logo.svg" alt="${escapeHtml(storeConfig.name)}" loading="eager" decoding="async" fetchpriority="high">
+          <a id="btn-cta" class="btn-primary btn-primary--delivery font-display w-full max-w-[340px] py-2.5 px-10 text-xl mt-6" href="menu.html">
             <span>Pedir domicilio</span>
           </a>
           <div class="hero-hours-badge" aria-label="Horario de atención">
-            <span>${storeConfig.openingHours}</span>
+            <span>${escapeHtml(storeConfig.openingHours)}</span>
           </div>
         </div>
       </section>

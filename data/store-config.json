@@ -1,0 +1,45 @@
+{
+  "name": "YOYO B&M",
+  "whatsappPhone": "573009414019",
+  "deliveryFeeText": "Domicilio desde $2.000 COP - Segun su distancia",
+  "heroImage": "https://images.unsplash.com/photo-1726039468346-2f3e0f1f5b52?q=80&auto=format&fit=crop",
+  "openingHours": "Lunes a Domingo - 3:30 PM a 11:00 PM",
+  "phoneDisplay": "+57 300 941 4019",
+  "canonicalUrl": "https://yoyobym.com.co/",
+  "metaTitle": "YOYO B&M | Jugos naturales, batidos y helados en Barranquilla",
+  "metaDescription": "Disfruta de los mejores jugos naturales, granizados, batidos especiales, helados y malteadas en Barranquilla. Arma tu pedido y envialo por WhatsApp.",
+  "metaKeywords": "YOYO B&M, jugos naturales Barranquilla, batidos especiales, helados artesanales, malteadas, fresas con crema, domicilios Barranquilla, WhatsApp pedidos",
+  "ogImage": "https://yoyobym.com.co/img/placeholders/logocom.jpeg",
+  "twitterImage": "https://yoyobym.com.co/img/placeholders/logocom.jpeg",
+  "ogType": "website",
+  "twitterCard": "summary_large_image",
+  "colors": {
+    "primary": "#FFC629",
+    "accent": "#FF8A00",
+    "darkBg": "#181512",
+    "cardBg": "#FFFFFF",
+    "textPrimary": "#181512",
+    "textSecondary": "#666666",
+    "warning": "#FFC629",
+    "alert": "#E0303D",
+    "bgPrimary": "#FFF8EC"
+  },
+  "toppings": [
+    { "id": "oreo", "name": "Oreo", "price": 1500 },
+    { "id": "chantilly", "name": "Crema Chantilly", "price": 3000 },
+    { "id": "fresas", "name": "Fresas", "price": 3000 },
+    { "id": "chips", "name": "Galletas Chips", "price": 1500 },
+    { "id": "jet", "name": "Chocolatina Jet", "price": 2500 },
+    { "id": "trululu", "name": "Gomitas Trululu", "price": 1500 },
+    { "id": "piazza", "name": "Barquillo Piazza", "price": 1500 },
+    { "id": "leche_polvo", "name": "Leche en Polvo", "price": 2500 }
+  ],
+  "heladoSizes": [
+    { "id": "cono1", "name": "Cono Sencillo (1 bola)", "price": 5000, "maxSabores": 1 },
+    { "id": "cono2", "name": "Cono Doble (2 bolas)", "price": 6000, "maxSabores": 2 },
+    { "id": "vaso5", "name": "Vaso 5 oz - 90 g (1 sabor)", "price": 5000, "maxSabores": 1 },
+    { "id": "vaso7", "name": "Vaso 7 oz - 130 g (hasta 2 sabores)", "price": 6000, "maxSabores": 2 },
+    { "id": "vaso12", "name": "Vaso 12 oz - 200 g (hasta 3 sabores)", "price": 9000, "maxSabores": 3 }
+  ],
+  "sabores": ["Vainilla", "Chocolate", "Fresa"]
+}

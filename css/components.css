@@ -240,12 +240,13 @@ button {
     gap: 0.4rem;
     margin-top: 1.25rem;
     padding: 0.4rem 1rem;
-    background: #FFF3C4;
-    border: 1px solid rgba(255, 198, 41, 0.3);
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
     border-radius: var(--radius-full);
     color: var(--color-dark-bg);
     font-size: 0.75rem;
     font-weight: 600;
+    box-shadow: none;
 }
 
 /* =============================================================================
@@ -286,26 +287,26 @@ button {
 .product-list-container {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 1rem 1.25rem 6rem;
-    max-width: 640px;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem 6rem;
+    max-width: 560px;
     margin: 0 auto;
 }
 
 @media (min-width: 640px) {
     .product-list-container {
-        padding: 1.5rem 2rem 6rem;
+        padding: 1rem 1.25rem 6rem;
+        max-width: 600px;
     }
 }
 
 @media (min-width: 1024px) {
     .product-list-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        max-width: 1100px;
-        padding: 2rem 2rem 6rem;
-        gap: 1.25rem;
-        align-items: start;
+        display: flex;
+        max-width: 620px;
+        padding: 1.25rem 1.5rem 6rem;
+        gap: 0.875rem;
+        align-items: stretch;
     }
 }
 
@@ -315,8 +316,9 @@ button {
 
 .product-card {
     background: #FFFFFF;
-    border: 1px solid rgba(24, 21, 18, 0.08);
-    border-radius: var(--radius-md);
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
 }
 
 /* =============================================================================
