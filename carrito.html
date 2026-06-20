@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>YOYO B&M | Carrito</title>
+  <meta name="description" content="Finaliza tu pedido por WhatsApp.">
+  <link rel="icon" type="image/jpeg" href="img/placeholders/logocom.jpeg">
+  <link rel="apple-touch-icon" href="img/placeholders/logocom.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Bebas Neue', 'Anton', 'sans-serif'],
+            body: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            primary: '#FFC629',
+            accent: '#FF8A00',
+            darkBg: '#181512',
+            cardBg: '#FFFFFF',
+            textPrimary: '#181512',
+            textSecondary: '#666666',
+            warning: '#FFC629',
+            alert: '#E0303D',
+            bgPrimary: '#FFF8EC'
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="text-textPrimary font-body bg-bgPrimary" data-page="carrito">
+  <div id="app-header"></div>
+  <main class="min-h-screen px-5 py-6 max-w-screen-md mx-auto">
+    <div id="cart-items" class="flex flex-col gap-4" role="list" aria-label="Productos en tu pedido"></div>
+    <div id="checkout-form" class="bg-cardBg p-5 rounded-3xl border border-black/5 flex flex-col gap-4 hidden mt-4">
+      <h3 class="font-display font-bold text-lg text-textPrimary">Datos de Entrega</h3>
+      <div>
+        <label for="cart-notes" class="block text-xs font-bold text-textSecondary uppercase tracking-wide mb-1.5 flex items-center">Notas Generales</label>
+        <textarea id="cart-notes" rows="2" class="checkout-input resize-none" placeholder="Ej: Para llevar, sin pitillo, etc." maxlength="300"></textarea>
+      </div>
+      <div>
+        <label for="cart-address" class="block text-xs font-bold text-warning uppercase tracking-wide mb-1.5 flex items-center">Direccion de Entrega</label>
+        <input type="text" id="cart-address" class="checkout-input" placeholder="Tu direccion completa con barrio" autocomplete="street-address" aria-required="true" maxlength="200">
+        <p id="address-error" class="text-xs bg-alert text-white px-3 py-2 rounded-lg mt-1 hidden font-bold" role="alert">La direccion de entrega es obligatoria.</p>
+      </div>
+    </div>
+  </main>
+  <div class="bg-cardBg px-5 pb-5 pt-4 shrink-0 rounded-t-3xl border-t border-black/5 relative max-w-screen-md mx-auto">
+    <div class="flex justify-between items-baseline mb-1 mt-2">
+      <span class="text-textSecondary font-semibold text-sm">Total Productos</span>
+      <span id="cart-total-price" class="font-display font-bold text-3xl text-accent tabular-nums">$0</span>
+    </div>
+    <button id="btn-send-order" type="button" class="whatsapp-btn w-full text-white font-display font-bold text-lg py-4 rounded-3xl flex justify-center items-center gap-2.5" disabled>Enviar por WhatsApp</button>
+  </div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

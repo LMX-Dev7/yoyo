@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * YOYO B&M — styles.css
+ * YOYO B&M — components.css
  * =============================================================================
  * Hoja de estilos personalizada que complementa a Tailwind CSS con:
  *   - Variables CSS de la marca (tokens de diseño)
@@ -36,12 +36,12 @@
     --color-light-gray:     #F5F3F0;    /* Gris muy claro — backgrounds secundarios */
     --color-border-hover:   #FFB700;    /* Amarillo más oscuro — bordes en hover */
 
-    /* Sombras PREMIUM */
-    --shadow-sm:  0 2px 4px rgba(24, 21, 18, 0.08);
-    --shadow-md:  0 4px 12px rgba(24, 21, 18, 0.12);
-    --shadow-lg:  0 8px 24px rgba(24, 21, 18, 0.16);
-    --shadow-xl:  0 12px 40px rgba(24, 21, 18, 0.2);
-    --shadow-yellow: 0 8px 32px rgba(255, 198, 41, 0.25);
+    /* Sombras mínimas para un look plano */
+    --shadow-sm:  0 0 0 transparent;
+    --shadow-md:  0 0 0 transparent;
+    --shadow-lg:  0 0 0 transparent;
+    --shadow-xl:  0 0 0 transparent;
+    --shadow-yellow: 0 0 0 transparent;
 
     /* Radio de bordes */
     --radius-sm:  8px;
@@ -144,9 +144,6 @@ button {
     background-size: cover;
     background-position: center 30%;
     background-repeat: no-repeat;
-    /* La URL se inyecta desde JavaScript (storeConfig.heroImage) */
-    transition: transform 8s ease-out;
-    will-change: transform;
 }
 
 
@@ -163,28 +160,15 @@ button {
     align-items: center;
 }
 
-/** Logo container circular glassmorphic */
 .hero-logo {
-    width: 7rem;
-    height: 7rem;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: var(--radius-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255,255,255,0.1);
-    overflow: hidden;
-}
-
-.hero-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: var(--radius-full);
+    width: min(220px, 62vw);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    background: transparent;
+    box-shadow: none;
+    filter: none;
+    margin-bottom: 1rem;
 }
 
 /** Nombre del negocio en el hero */
@@ -193,72 +177,57 @@ button {
     font-weight: 700;
     color: var(--color-dark-bg);
     letter-spacing: -0.02em;
-    text-shadow: 0 2px 20px rgba(255, 255, 255, 0.8);
     margin-bottom: 0.5rem;
     line-height: 1;
 }
 
-/** Slogan del hero */
-.hero-tagline {
-    font-size: clamp(0.9rem, 3vw, 1.1rem);
-    color: var(--color-text-secondary);
-    font-weight: 600;
-    margin-bottom: 2.5rem;
-    text-shadow: 0 1px 8px rgba(255, 255, 255, 0.8);
-    max-width: 320px;
-}
-
 /** Botones — Jerarquía Clara */
 .btn-primary {
-    background: linear-gradient(135deg, #FFC629 0%, #FFD95A 100%);
-    color: var(--color-text-primary);
+    background: #16A34A;
+    color: #FFFFFF;
     border-radius: var(--radius-full);
-    border: 1px solid rgba(255, 198, 41, 0.45);
-    box-shadow: 0 8px 24px rgba(255, 198, 41, 0.28);
-    transition: all 300ms ease;
+    border: 1px solid rgba(22, 163, 74, 0.35);
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     font-weight: bold;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
 
-.btn-primary:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(255, 198, 41, 0.38);
+.btn-primary--delivery {
+    background: #FFC629;
+    color: var(--color-text-primary);
+    border: 1px solid rgba(255, 198, 41, 0.45);
 }
 
 .btn-primary:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
 }
 
 .btn-secondary {
-    background-color: rgba(255, 255, 255, 0.84);
+    background-color: #FFFFFF;
     color: var(--color-text-primary);
     border: 1px solid rgba(255, 198, 41, 0.45);
     border-radius: var(--radius-full);
-    transition: all 300ms ease;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     font-weight: bold;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 12px rgba(24, 21, 18, 0.06);
 }
 
 .btn-secondary:hover:not(:disabled) {
     background-color: rgba(255, 198, 41, 0.12);
     color: var(--color-text-primary);
-    box-shadow: 0 8px 18px rgba(255, 198, 41, 0.14);
 }
 
 .btn-danger {
-    background: linear-gradient(135deg, #E0303D 0%, #F15A63 100%);
+    background: #E0303D;
     color: #FFFFFF;
     border-radius: var(--radius-full);
     font-weight: bold;
-    transition: all 300ms ease;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -271,9 +240,7 @@ button {
     gap: 0.4rem;
     margin-top: 1.25rem;
     padding: 0.4rem 1rem;
-    background: rgba(255, 248, 236, 0.7);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: #FFF3C4;
     border: 1px solid rgba(255, 198, 41, 0.3);
     border-radius: var(--radius-full);
     color: var(--color-dark-bg);
@@ -347,51 +314,24 @@ button {
  * ========================================================================== */
 
 .product-card {
-    background: rgba(255, 255, 255, 0.86);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 198, 41, 0.16);
+    background: #FFFFFF;
+    border: 1px solid rgba(24, 21, 18, 0.08);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    transition: all 300ms ease;
-}
-
-.product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(255, 198, 41, 0.16);
-    border-color: var(--color-primary);
 }
 
 /* =============================================================================
- * 8. GLASSMORPHISM — Panel Modal y Cards
- * ========================================================================== */
-
-/**
- * Clase genérica para fondos de cristal esmerilado.
- * Se usa en tarjetas y overlays que necesitan efecto glassmorphic.
- */
-.glass-card {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 198, 41, 0.12);
-}
-
-/* =============================================================================
- * 9. MODAL DE PRODUCTO
+ * 8. MODAL DE PRODUCTO
  * ========================================================================== */
 
 /** Overlay del modal */
 #modal-product {
-    background: rgba(24, 21, 18, 0.18);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(24, 21, 18, 0.12);
 }
 
 /** Contenedor blanco del modal */
 #modal-content {
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-    box-shadow: var(--shadow-xl), 0 -1px 0 rgba(0,0,0,0.04);
+    border-top: 1px solid rgba(24, 21, 18, 0.08);
 }
 
 /** Imagen circular flotante del producto en el modal */
@@ -401,7 +341,6 @@ button {
     border-radius: var(--radius-full);
     overflow: hidden;
     border: 4px solid var(--color-card-bg);
-    box-shadow: var(--shadow-md);
     background-color: rgba(255, 248, 236, 0.95);
 }
 
@@ -499,21 +438,10 @@ input[type="checkbox"] {
  * ========================================================================== */
 
 #floating-cart {
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
-    box-shadow: var(--shadow-lg);
-}
-
-#floating-cart:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: var(--shadow-xl);
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
 #floating-cart:active {
-    transform: scale(0.95);
-}
-
-#floating-cart.scale-125 {
-    transform: scale(1.25);
 }
 
 /* =============================================================================
@@ -521,18 +449,16 @@ input[type="checkbox"] {
  * ========================================================================== */
 
 .whatsapp-btn {
-    background: linear-gradient(135deg, #25D366 0%, #1EBF5A 100%);
-    box-shadow: 0 6px 24px rgba(37, 211, 102, 0.35);
-    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    background: #25D366;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.whatsapp-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .whatsapp-btn:hover:not(:disabled) {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.45);
-}
-
-.whatsapp-btn:active:not(:disabled) {
-    transform: translateY(0) scale(0.98);
 }
 
 /* =============================================================================
@@ -577,14 +503,14 @@ input[type="checkbox"] {
     transform: translateX(-50%) translateY(100px);
     z-index: 9999;
 
-    background: rgba(24, 21, 18, 0.94);
+    background: rgba(24, 21, 18, 0.96);
     color: #FFF8EC;
     font-family: var(--font-body);
     font-size: 0.875rem;
     font-weight: 600;
     padding: 0.875rem 1.5rem;
     border-radius: var(--radius-full);
-    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 248, 236, 0.12);
     white-space: nowrap;
     max-width: calc(100vw - 2rem);
     overflow: hidden;
@@ -593,8 +519,8 @@ input[type="checkbox"] {
     /* Animación de entrada/salida */
     opacity: 0;
     transition:
-        opacity 0.3s ease,
-        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        opacity 0.2s ease,
+        transform 0.2s ease;
     pointer-events: none;
 }
 
@@ -640,62 +566,7 @@ input[type="checkbox"] {
 }
 
 /* =============================================================================
- * 17. ANIMACIONES
- * ========================================================================== */
-
-/** Animación fade-in de entrada */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
-
-/** Animación slide-up de aparición */
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/** Animación scale-in */
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/** Animación shimmer (carga esqueleto) */
-@keyframes shimmer {
-    0%   { background-position: -200% 0; }
-    100% { background-position:  200% 0; }
-}
-
-.fade-in  { animation: fadeIn  0.4s var(--transition-slow) both; }
-.slide-up { animation: slideUp 0.4s var(--transition-slow) both; }
-.scale-in { animation: scaleIn 0.3s var(--transition-slow) both; }
-
-/* =============================================================================
- * 18. SKELETON / ESTADO DE CARGA
- * ========================================================================== */
-
-.skeleton {
-    background: linear-gradient(90deg, #F3F4F6 25%, #E5E7EB 50%, #F3F4F6 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: var(--radius-sm);
-}
-
-/* =============================================================================
- * 19. FOCUS VISIBLE — Accesibilidad por Teclado
+ * 17. FOCUS VISIBLE — Accesibilidad por Teclado
  * ========================================================================== */
 
 /**
@@ -742,8 +613,7 @@ select:focus-visible {
     }
 
     .hero-logo {
-        width: 8rem;
-        height: 8rem;
+        width: min(260px, 52vw);
     }
 }
 
@@ -761,7 +631,6 @@ select:focus-visible {
         right: auto;
         transform: translateX(-50%);
         border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-        box-shadow: var(--shadow-xl);
     }
 
     /* Flotante del carrito en desktop */

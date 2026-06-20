@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>YOYO B&M | Menú</title>
+  <meta name="description" content="Explora el menú de jugos, batidos y helados.">
+  <link rel="icon" type="image/jpeg" href="img/placeholders/logocom.jpeg">
+  <link rel="apple-touch-icon" href="img/placeholders/logocom.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Bebas Neue', 'Anton', 'sans-serif'],
+            body: ['Nunito', 'sans-serif'],
+          },
+          colors: {
+            primary: '#FFC629',
+            accent: '#FF8A00',
+            darkBg: '#181512',
+            cardBg: '#FFFFFF',
+            textPrimary: '#181512',
+            textSecondary: '#666666',
+            warning: '#FFC629',
+            alert: '#E0303D',
+            bgPrimary: '#FFF8EC'
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body class="text-textPrimary font-body bg-bgPrimary" data-page="menu">
+  <main class="min-h-screen">
+    <section id="menu-categories-view" class="view-section px-5 py-6 max-w-screen-xl mx-auto">
+      <div class="mb-6">
+        <h1 class="text-3xl font-display font-bold text-textPrimary">Nuestro Menú</h1>
+        <p class="text-sm text-textSecondary mt-1">Elige una categoría para ver sus productos</p>
+      </div>
+      <div id="category-grid" class="categories-grid" role="list" aria-label="Categorias del menu"></div>
+    </section>
+
+    <section id="menu-products-view" class="view-section hidden-view px-5 py-6 max-w-screen-xl mx-auto">
+      <div class="flex items-center justify-between gap-3 mb-5">
+        <button id="btn-back-to-categories" type="button" class="btn-secondary px-4 py-2 text-sm">Volver</button>
+        <a id="btn-go-cart" class="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold" href="carrito.html">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4L7 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 13l-2 2.5A1.5 1.5 0 0 0 6.2 18h11.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 20a1 1 0 1 0 0 .01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M17 20a1 1 0 1 0 0 .01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>Carrito</span>
+          <span id="cart-badge" class="min-w-5 h-5 px-1 rounded-full bg-white text-emerald-700 text-[11px] leading-5 text-center font-black">0</span>
+        </a>
+      </div>
+      <h2 id="cat-title" class="text-2xl font-display font-bold text-textPrimary mb-4">Categoria</h2>
+      <div id="product-list" class="product-list-container" role="list" aria-label="Productos disponibles"></div>
+    </section>
+  </main>
+
+  <div id="modal-root"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

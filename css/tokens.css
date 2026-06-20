@@ -1,0 +1,31 @@
+:root {
+    --color-primary: #FFC629;
+    --color-accent: #FF8A00;
+    --color-dark-bg: #181512;
+    --color-card-bg: #FFFFFF;
+    --color-text-primary: #181512;
+    --color-text-secondary: #666666;
+    --color-warning: #FFC629;
+    --color-alert: #E0303D;
+    --color-bg-primary: #FFF8EC;
+    --color-border: #E0D4C1;
+    --color-pink-accent: #FF5C7A;
+    --color-green-accent: #2D7A4A;
+    --color-light-gray: #F5F3F0;
+    --color-border-hover: #FFB700;
+    --shadow-sm: 0 0 0 transparent;
+    --shadow-md: 0 0 0 transparent;
+    --shadow-lg: 0 0 0 transparent;
+    --shadow-xl: 0 0 0 transparent;
+    --shadow-yellow: 0 0 0 transparent;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 9999px;
+    --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    --font-display: 'Bebas Neue', 'Anton', sans-serif;
+    --font-body: 'Nunito', 'Segoe UI', sans-serif;
+}

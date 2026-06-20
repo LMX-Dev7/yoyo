@@ -1,6 +1,6 @@
 /**
  * =============================================================================
- * YOYO B&M — database.js
+ * YOYO B&M — store.js
  * =============================================================================
  * Archivo central de configuración y catálogo de productos.
  *
@@ -25,30 +25,18 @@
  * storeConfig — Configuración global del negocio.
  * Modifica estos valores para adaptar la app a cualquier restaurante.
  */
-const storeConfig = {
+export const storeConfig = {
     /** Nombre comercial que aparece en el header, título SEO y mensajes de WhatsApp */
     name: "YOYO B&M",
-
-    /** Descripción corta para el subtítulo de la pantalla de inicio */
-    tagline: "Batidos, granizados y helados con fruta natural",
 
     /** Número de WhatsApp en formato internacional sin espacios ni símbolos */
     whatsappPhone: "573009414019",
 
     /** Texto informativo del costo de domicilio (solo informativo, no es un cálculo automático) */
-    deliveryFeeText: "Domicilio desde $2.000 COP — acordar con el negocio",
+    deliveryFeeText: "Domicilio desde $2.000 COP — Segun su distancia",
 
     /** URL de imagen de alta calidad para el fondo del hero en la pantalla de inicio */
-    heroImage: "https://images.unsplash.com/photo-1641665271888-575e46923776?q=80&auto=format&fit=crop",
-
-    /**
-     * URL del logo del negocio. Reemplaza esta URL con la imagen real del logo.
-     * Se recomienda imagen cuadrada (ej: 400x400px) en formato PNG con fondo transparente.
-     */
-    logoUrl: "https://images.unsplash.com/photo-1594489556673-c816408242f5?q=80&auto=format&fit=crop",
-
-    /** Ciudad o localización para el pie de página y SEO */
-    location: "Barranquilla, Colombia",
+    heroImage: "https://images.unsplash.com/photo-1726039468346-2f3e0f1f5b52?q=80&auto=format&fit=crop",
 
     /** Horario de atención en formato legible */
     openingHours: "Lunes a Domingo — 3:30 PM a 11:00 PM",
@@ -69,7 +57,7 @@ const storeConfig = {
  * El campo `colorClasses` usa clases de Tailwind CSS para el estilo de la tarjeta.
  * El campo `iconPath` es el atributo `d` de un SVG path de Heroicons (https://heroicons.com).
  */
-const categories = [
+export const categories = [
     {
         id: 'jugos',
         label: 'Jugos y Granizados',
@@ -80,7 +68,7 @@ const categories = [
         /** Icono SVG (outline) — vaso de jugo */
         iconPath: 'M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11m0 0a2 2 0 002 2h4a2 2 0 002-2M9 14H5a2 2 0 01-2-2V9m16 5V9m0 0a2 2 0 00-2-2H9',
         /** Imagen de portada de categoría (se muestra en la tarjeta) */
-        cardImage: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?w=600&q=80&auto=format&fit=crop",
+        cardImage: "https://images.unsplash.com/photo-1585611680828-24e7b3608ce3?q=80&auto=format&fit=crop",
     },
     {
         id: 'batidos',
@@ -95,14 +83,14 @@ const categories = [
     },
     {
         id: 'helados',
-        label: 'Helados Artesanales',
+        label: 'Helados ',
         colorFrom: '#fce7f3',
         colorTo:   '#fbcfe8',
         accentColor: '#9d174d',
         circleColor: '#f9a8d4',
         /** Icono SVG (outline) — cono de helado */
         iconPath: 'M12 2C9.239 2 7 4.239 7 7c0 1.5.625 2.854 1.632 3.823L12 22l3.368-11.177A4.985 4.985 0 0017 7c0-2.761-2.239-5-5-5z',
-        cardImage: "https://images.unsplash.com/photo-1557142046-c704a3adf364?w=600&q=80&auto=format&fit=crop",
+        cardImage: "https://plus.unsplash.com/premium_photo-1675279010969-e85bfbd402dc?q=80&auto=format&fit=crop",
     },
     {
         id: 'fresas_crema',
@@ -113,7 +101,7 @@ const categories = [
         circleColor: '#fca5a5',
         /** Icono SVG (outline) — fresa/postre */
         iconPath: 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
-        cardImage: "https://images.unsplash.com/photo-1553177595-4de2bb0842b9?q=80&auto=format&fit=crop",
+        cardImage: "https://images.unsplash.com/photo-1645562290001-dff9baca8d80?q=80&auto=format&fit=crop",
     },
 ];
 
@@ -121,7 +109,7 @@ const categories = [
  * toppings — Lista de extras disponibles para todos los productos.
  * Añade o elimina objetos para gestionar la oferta de toppings.
  */
-const toppings = [
+export const toppings = [
     { id: 'oreo',        name: 'Oreo',            price: 1500 },
     { id: 'chantilly',   name: 'Crema Chantilly', price: 3000 },
     { id: 'fresas',      name: 'Fresas',          price: 3000 },
@@ -136,7 +124,7 @@ const toppings = [
  * heladoSizes — Presentaciones disponibles para el helado artesanal.
  * `maxSabores` controla cuántos sabores puede elegir el cliente.
  */
-const heladoSizes = [
+export const heladoSizes = [
     { id: 'cono1',  name: 'Cono Sencillo (1 bola)',                   price: 5000,  maxSabores: 1 },
     { id: 'cono2',  name: 'Cono Doble (2 bolas)',                     price: 6000,  maxSabores: 2 },
     { id: 'vaso5',  name: 'Vaso 5 oz — 90 g (1 sabor)',               price: 5000,  maxSabores: 1 },
@@ -148,7 +136,7 @@ const heladoSizes = [
  * sabores — Sabores de helado disponibles.
  * Extensible: simplemente añade más strings al array.
  */
-const sabores = ['Vainilla', 'Chocolate', 'Fresa'];
+export const sabores = ['Vainilla', 'Chocolate', 'Fresa'];
 
 /**
  * products — Catálogo completo de productos.
@@ -174,7 +162,7 @@ const sabores = ['Vainilla', 'Chocolate', 'Fresa'];
  *   type 'helado':
  *     price    {number}       Precio base (el real viene de heladoSizes).
  */
-const products = [
+export const products = [
 
     /* -------------------------------------------------------------------------
      * Jugos y Granizados
@@ -403,7 +391,7 @@ const products = [
         id: 22,
         categoryId: 'helados',
         type: 'helado',
-        name: 'Helado Artesanal',
+        name: 'Helados',
         description: 'Elige tu presentacion y tus sabores favoritos.',
         price: 5000, /* Precio base; el definitivo viene de heladoSizes */
         hasToppings: true,
@@ -435,7 +423,7 @@ const products = [
         description: 'Vaso de 14 oz. Deliciosas fresas con crema. Elige: Leche Condensada o Arequipe.',
         price: 13000,
         hasToppings: true,
-        image: 'https://images.unsplash.com/photo-1553177595-4de2bb0842b9?q=80&w=385&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        image: 'https://images.unsplash.com/photo-1645562290001-dff9baca8d80?q=80&auto=format&fit=crop',
     },
 ];
 
