@@ -183,7 +183,7 @@ button {
 
 /** Botones — Jerarquía Clara */
 .btn-primary {
-    background: #16A34A;
+    background: #040805;
     color: #FFFFFF;
     border-radius: var(--radius-full);
     border: 1px solid rgba(22, 163, 74, 0.35);
@@ -208,7 +208,7 @@ button {
 .btn-secondary {
     background-color: #FFFFFF;
     color: var(--color-text-primary);
-    border: 1px solid rgba(255, 198, 41, 0.45);
+    border: 1px solid #fbb903f5;
     border-radius: var(--radius-full);
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     font-weight: bold;
@@ -451,7 +451,7 @@ input[type="checkbox"] {
  * ========================================================================== */
 
 .whatsapp-btn {
-    background: #25D366;
+    background: hwb(0 3% 97%);
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
@@ -648,27 +648,6 @@ select:focus-visible {
     }
 }
 
-/* =============================================================================
- * 22. MODO OSCURO (prefers-color-scheme)
- * ========================================================================== */
-
-/*
- * Opcional: actualmente el diseño usa colores claros. Si en el futuro se desea
- * soporte de modo oscuro, descomentar y personalizar esta sección.
- */
-
-/*
-@media (prefers-color-scheme: dark) {
-    :root {
-        --color-bg-primary:  #0F0F1A;
-        --color-bg-card:     #1A1A2E;
-        --color-text-primary:   #F9FAFB;
-        --color-text-secondary: #9CA3AF;
-        --color-border:         #374151;
-    }
-    body { background-color: var(--color-bg-primary); }
-}
-*/
 
 /* =============================================================================
  * 23. UTILIDADES ADICIONALES
@@ -693,4 +672,254 @@ select:focus-visible {
 ::selection {
     background: rgba(255, 198, 41, 0.22);
     color: var(--color-text-primary);
+}
+
+/* =============================================================================
+ * 24. MONOCHROME PREMIUM OVERRIDES
+ * ========================================================================== */
+
+:root {
+    --color-primary: #111111;
+    --color-accent: #111111;
+    --color-dark-bg: #0B0B0B;
+    --color-card-bg: #FFFFFF;
+    --color-text-primary: #111111;
+    --color-text-secondary: #6B7280;
+    --color-warning: #111111;
+    --color-bg-primary: #F6F6F4;
+    --color-border: #E5E7EB;
+    --color-light-gray: #F3F4F6;
+    --font-display: 'Poppins', 'Segoe UI', sans-serif;
+    --font-body: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+body {
+    background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.92), rgba(246, 246, 244, 1) 58%);
+    color: var(--color-text-primary);
+}
+
+.hero-section {
+    min-height: 100svh;
+    isolation: isolate;
+}
+
+.hero-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.38) 100%);
+}
+
+.hero-content {
+    max-width: 28rem;
+    gap: 0.9rem;
+}
+
+.hero-logo {
+    width: min(260px, 68vw);
+    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.28));
+}
+
+.hero-socials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.hero-social-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.4rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #111111;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.whatsapp-btn {
+    min-height: 3.25rem;
+    border-radius: 9999px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    transition: transform 180ms ease, opacity 180ms ease, background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.btn-primary,
+.btn-primary--delivery,
+.whatsapp-btn {
+    background: oklch(0% 0 0);
+    color: oklab(97.913% 0 -0.00011 / 0.935);
+    border: 1px solid rgba(17, 17, 17, 0.10);
+    box-shadow: 0 14px 30px rgba(17, 17, 17, 0.18);
+}
+
+.btn-secondary {
+    background: #FFFFFF;
+    color: #111111;
+    border: 1px solid rgba(17, 17, 17, 0.10);
+    box-shadow: 0 10px 24px rgba(17, 17, 17, 0.04);
+}
+
+.btn-secondary:hover:not(:disabled),
+.btn-primary:hover:not(:disabled),
+.whatsapp-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+.hero-hours-badge {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    color: #111111;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+.categories-grid {
+    gap: 0.9rem;
+    padding: 0.25rem 0 2rem;
+}
+
+.category-card {
+    border-radius: 1.8rem;
+    overflow: hidden;
+    background: #FFFFFF;
+    border: 1px solid rgba(17, 17, 17, 0.05);
+    box-shadow: 0 18px 40px rgba(17, 17, 17, 0.06);
+}
+
+.category-card img {
+    transform: scale(1.01);
+}
+
+.category-card .absolute.inset-x-0.top-0 {
+    padding: 1rem;
+}
+
+.product-list-container {
+    gap: 0.9rem;
+}
+
+.product-card,
+[data-cart-index] {
+    background: #F3F4F6;
+    border-radius: 1.6rem;
+    border: 1px solid rgba(17, 17, 17, 0.06);
+    box-shadow: 0 12px 32px rgba(17, 17, 17, 0.05);
+}
+
+.config-badge {
+    background: rgba(17, 17, 17, 0.06);
+    color: #111111;
+}
+
+.config-badge--blue {
+    background: rgba(17, 17, 17, 0.10);
+    color: #111111;
+}
+
+.qty-controls {
+    background: #FFFFFF;
+    border: 1px solid rgba(17, 17, 17, 0.06);
+}
+
+.checkout-input,
+.fruits-input {
+    background: #FFFFFF;
+    border: 1px solid rgba(17, 17, 17, 0.10);
+    border-radius: 1rem;
+    min-height: 3.1rem;
+    padding: 0.9rem 1rem;
+    box-shadow: 0 8px 20px rgba(17, 17, 17, 0.03);
+}
+
+.checkout-input:focus,
+.fruits-input:focus {
+    border-color: #111111;
+    box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.08);
+}
+
+.modal-form-section,
+.granizado-toggle,
+#modal-content,
+.modal-product-image {
+    border-color: rgba(17, 17, 17, 0.08);
+    background: #FFFFFF;
+}
+
+.granizado-toggle {
+    border-width: 1px;
+    border-radius: 1.25rem;
+    padding: 0.95rem 1rem;
+    box-shadow: 0 10px 24px rgba(17, 17, 17, 0.04);
+}
+
+#modal-content {
+    box-shadow: 0 30px 80px rgba(17, 17, 17, 0.14);
+}
+
+#modal-product {
+    background: rgba(17, 17, 17, 0.42);
+}
+
+.size-option,
+#helado-flavors-container > label,
+.modal-form-section label[for],
+#toppings-container > label {
+    border-radius: 1.15rem;
+    background: #FFFFFF;
+    border-color: rgba(17, 17, 17, 0.08);
+}
+
+.whatsapp-btn {
+    background: #111111;
+}
+
+body[data-page="carrito"] header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    background: #111111;
+    color: #FFFFFF;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+}
+
+body[data-page="carrito"] header a,
+body[data-page="carrito"] header p,
+body[data-page="carrito"] header h1,
+body[data-page="carrito"] header span {
+    color: #FFFFFF;
+}
+
+body[data-page="carrito"] main {
+    padding-top: 6.25rem;
+}
+
+.cart-count-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    padding: 0 0.9rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-weight: 800;
+}
+
+.app-footer {
+    color: var(--color-text-secondary);
 }

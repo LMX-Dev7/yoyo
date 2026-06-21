@@ -19,31 +19,31 @@
   <meta name="twitter:title" content="YOYO B&M | Carrito y pedido por WhatsApp">
   <meta name="twitter:description" content="Finaliza tu pedido en YOYO B&M. Revisa tu carrito, completa la direccion y envia tu compra por WhatsApp.">
   <meta name="twitter:image" content="https://yoyobym.com.co/img/placeholders/logocom.jpeg">
-  <meta name="theme-color" content="#FFC629">
+  <meta name="theme-color" content="#111111">
   <link rel="icon" type="image/jpeg" href="img/placeholders/logocom.jpeg">
   <link rel="apple-touch-icon" href="img/placeholders/logocom.jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            display: ['Bebas Neue', 'Anton', 'sans-serif'],
-            body: ['Nunito', 'sans-serif'],
+            display: ['Poppins', 'sans-serif'],
+            body: ['Poppins', 'sans-serif'],
           },
           colors: {
-            primary: '#FFC629',
-            accent: '#FF8A00',
-            darkBg: '#181512',
+            primary: '#111111',
+            accent: '#111111',
+            darkBg: '#0B0B0B',
             cardBg: '#FFFFFF',
-            textPrimary: '#181512',
-            textSecondary: '#666666',
-            warning: '#FFC629',
+            textPrimary: '#111111',
+            textSecondary: '#6B7280',
+            warning: '#111111',
             alert: '#E0303D',
-            bgPrimary: '#FFF8EC'
+            bgPrimary: '#F6F6F4'
           },
         },
       },
@@ -56,9 +56,9 @@
 </head>
 <body class="text-textPrimary font-body bg-bgPrimary" data-page="carrito">
   <div id="app-header"></div>
-  <main class="min-h-screen px-5 py-6 max-w-screen-md mx-auto">
+  <main class="min-h-screen px-4 pt-24 pb-32 max-w-screen-md mx-auto">
     <div id="cart-items" class="flex flex-col gap-4" role="list" aria-label="Productos en tu pedido"></div>
-    <div id="checkout-form" class="bg-cardBg p-5 rounded-3xl border border-black/5 flex flex-col gap-4 hidden mt-4">
+    <div id="checkout-form" class="bg-cardBg p-5 rounded-[2rem] border border-black/5 flex flex-col gap-4 hidden mt-4 shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
       <h3 class="font-display font-bold text-lg text-textPrimary">Datos de Entrega</h3>
       <div>
         <label for="cart-notes" class="block text-xs font-bold text-textSecondary uppercase tracking-wide mb-1.5 flex items-center">Notas Generales</label>
@@ -71,7 +71,7 @@
       </div>
     </div>
   </main>
-  <div class="bg-cardBg px-5 pb-5 pt-4 shrink-0 rounded-t-3xl border-t border-black/5 relative max-w-screen-md mx-auto">
+  <div class="bg-cardBg px-4 pb-5 pt-4 shrink-0 rounded-t-[2rem] border-t border-black/5 relative max-w-screen-md mx-auto shadow-[0_-10px_30px_rgba(0,0,0,0.04)]">
     <div class="flex justify-between items-baseline mb-1 mt-2">
       <span class="text-textSecondary font-semibold text-sm">Total Productos</span>
       <span id="cart-total-price" class="font-display font-bold text-3xl text-accent tabular-nums">$0</span>
