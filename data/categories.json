@@ -7,7 +7,7 @@
     "accentColor": "#15803d",
     "circleColor": "#86efac",
     "iconPath": "M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v11m0 0a2 2 0 002 2h4a2 2 0 002-2M9 14H5a2 2 0 01-2-2V9m16 5V9m0 0a2 2 0 00-2-2H9",
-    "cardImage": "https://images.unsplash.com/photo-1585611680828-24e7b3608ce3?q=80&auto=format&fit=crop"
+    "cardImage": "https://images.unsplash.com/photo-1585611680828-24e7b3608ce3?w=600&q=80&auto=format&fit=crop"
   },
   {
     "id": "batidos",
@@ -27,7 +27,7 @@
     "accentColor": "#9d174d",
     "circleColor": "#f9a8d4",
     "iconPath": "M12 2C9.239 2 7 4.239 7 7c0 1.5.625 2.854 1.632 3.823L12 22l3.368-11.177A4.985 4.985 0 0017 7c0-2.761-2.239-5-5-5z",
-    "cardImage": "https://plus.unsplash.com/premium_photo-1675279010969-e85bfbd402dc?q=80&auto=format&fit=crop"
+    "cardImage": "https://plus.unsplash.com/premium_photo-1675279010969-e85bfbd402dc?w=600&q=80&auto=format&fit=crop"
   },
   {
     "id": "fresas_crema",
@@ -37,6 +37,6 @@
     "accentColor": "#be123c",
     "circleColor": "#fca5a5",
     "iconPath": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
-    "cardImage": "https://images.unsplash.com/photo-1645562290001-dff9baca8d80?q=80&auto=format&fit=crop"
+    "cardImage": "https://images.unsplash.com/photo-1645562290001-dff9baca8d80?w=600&q=80&auto=format&fit=crop"
   }
 ]

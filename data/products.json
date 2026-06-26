@@ -243,6 +243,6 @@
     "description": "Vaso de 14 oz. Deliciosas fresas con crema. Elige: Leche Condensada o Arequipe.",
     "price": 13000,
     "hasToppings": true,
-    "image": "https://images.unsplash.com/photo-1645562290001-dff9baca8d80?q=80&auto=format&fit=crop"
+    "image": "https://images.unsplash.com/photo-1645562290001-dff9baca8d80?w=400&q=80&auto=format&fit=crop"
   }
 ]

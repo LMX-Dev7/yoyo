@@ -19,7 +19,8 @@ export const initIndexPage = async () => {
       <section id="view-home" class="view-section hero-section" aria-label="Pantalla de inicio">
         <div id="hero-bg" class="hero-bg" role="img" aria-label="Jugos y batidos naturales frescos"></div>
         <div class="hero-content">
-          <img class="hero-logo" src="img/placeholders/logo.svg" alt="${escapeHtml(storeConfig.name)}" loading="eager" decoding="async" fetchpriority="high">
+          <h1 class="sr-only">${escapeHtml(storeConfig.name)} | Jugos naturales, batidos y helados en Barranquilla</h1>
+          <img class="hero-logo" src="img/placeholders/logo.svg" alt="${escapeHtml(storeConfig.name)}" width="220" height="214" loading="eager" decoding="async" fetchpriority="high">
           <a id="btn-cta" class="btn-primary btn-primary--delivery font-display w-full max-w-[340px] py-2.5 px-10 text-xl mt-6" href="menu.html">
             <span>Pedir domicilio</span>
           </a>
